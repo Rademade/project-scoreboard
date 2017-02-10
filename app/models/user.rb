@@ -3,8 +3,14 @@ require 'digest/sha1'
 class User < Base
   include RademadeAdmin::UserModule
 
+  has_and_belongs_to_many :projects
+
   validates :email, uniqueness: { case_sensitive: false }
-  validates :password, length: { minimum: 8 }, allow_nil: true
+  validates :password, length: { minimum: 5 }, allow_nil: true
+
+  def full_name
+    "#{first_name} #{last_name}".strip
+  end
 
   def self.get_by_email(email)
     find_by(email: email)
@@ -16,6 +22,10 @@ class User < Base
 
   def password
     self[:encrypted_password]
+  end
+
+  def valid_password?(password)
+    self[:encrypted_password] == encrypt_password(password)
   end
 
   def to_s

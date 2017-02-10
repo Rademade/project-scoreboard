@@ -8,6 +8,7 @@ gem 'rademade_admin',
   ref: 'c1c38615'
 
 gem 'puma', '~> 3.0'
+gem 'jira-ruby', require: 'jira-ruby'
 
 group :development, :test do
   gem 'rack-cors', require: 'rack/cors'

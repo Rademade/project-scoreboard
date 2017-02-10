@@ -14,6 +14,10 @@ Bundler.require(*Rails.groups)
 
 module Scoreboard
   class Application < Rails::Application
+    config.to_prepare do
+      require 'scoreboard_core'
+    end
+
     config.assets.initialize_on_precompile = true
     config.middleware.insert_before(Rack::Sendfile, LightResizer::Middleware, Rails.root)
     config.i18n.default_locale = :ru
