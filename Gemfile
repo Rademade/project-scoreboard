@@ -1,11 +1,16 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
-gem 'sqlite3'
+gem 'pg'
+gem 'rademade_admin',
+  git: 'git@github.com:Rademade/rademade_admin',
+  branch: 'feature/rails-5',
+  ref: 'c1c38615'
+
 gem 'puma', '~> 3.0'
-gem 'rack-cors'
 
 group :development, :test do
+  gem 'rack-cors', require: 'rack/cors'
   gem 'pry'
   gem 'byebug', platform: :mri
 end
