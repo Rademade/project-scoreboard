@@ -1,0 +1,5 @@
+require 'scoreboard/core/jira/serializer/project'
+require 'scoreboard/core/jira/serializer/projects'
+require 'scoreboard/core/jira/project'
+require 'scoreboard/core/jira/repo'
+require 'scoreboard/core/jira/sprint'

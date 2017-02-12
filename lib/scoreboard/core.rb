@@ -3,3 +3,5 @@ module Scoreboard
     class TransactionError < RuntimeError; end
   end
 end
+
+require 'scoreboard/core/jira'
