@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20170210203222) do
 
   create_table "projects", force: :cascade do |t|
     t.string   "name"
+    t.string   "jira_host"
     t.string   "jira_api_key"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
@@ -29,15 +30,22 @@ ActiveRecord::Schema.define(version: 20170210203222) do
     t.index ["user_id"], name: "index_projects_users_on_user_id", using: :btree
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
     t.string   "encrypted_password"
     t.boolean  "admin"
-    t.integer  "role"
+    t.integer  "role_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.index ["role_id"], name: "index_users_on_role_id", using: :btree
   end
 
 end

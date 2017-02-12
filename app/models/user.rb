@@ -4,8 +4,9 @@ class User < Base
   include RademadeAdmin::UserModule
 
   has_and_belongs_to_many :projects
+  belongs_to :role
 
-  validates :email, uniqueness: { case_sensitive: false }
+  validates :email, uniqueness: true
   validates :password, length: { minimum: 5 }, allow_nil: true
 
   def full_name

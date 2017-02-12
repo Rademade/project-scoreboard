@@ -7,9 +7,7 @@ class RademadeAdmin::UsersController < RademadeAdmin::ModelController
       first_name
       last_name
       email
-      role as: :select,
-        collection: Scoreboard::Core::Constants::User.roles.invert,
-        include_blank: false
+      role
       admin
       password
     end

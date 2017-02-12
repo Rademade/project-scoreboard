@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :email
       t.string :encrypted_password
       t.boolean :admin
-      t.integer :role
+      t.integer :role_id, index: true
 
       t.timestamps
     end

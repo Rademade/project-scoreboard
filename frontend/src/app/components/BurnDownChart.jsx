@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react'
+import {connect} from 'react-redux'
 import {Line} from 'react-chartjs-2'
 import * as _ from 'lodash'
 
@@ -9,66 +10,63 @@ const styles = {
   }
 }
 
-class BurnDownChart extends Component {
-  getData() {
-    return {
-      labels: [1, 2, 3, 4, 5, 6],
-      datasets: [{
-        type: 'line',
-        label: 'Planned',
-        data: _.map(_.range(1, 7), (i) => { return _.random(5, 25) }),
-        fill: false,
-        lineTension: 0
-      }, {
-        type: 'line',
-        label: 'Realized',
-        data: _.map(_.range(1, 7), (i) => { return _.random(5, 25) }),
-        fill: false,
-        lineTension: 0
-      }]
-    }
-  }
-
-  getOptions() {
-    return {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero:true
-          }
-        }]
+const options = {
+  scales: {
+    yAxes: [{
+      ticks: {
+        beginAtZero:true
       }
-    }
-  }
-
-  getStoryPoints() {
-    let points = this.props.project.sprint.storyPoints;
-    return `SP: ${points.realized} / ${points.planned}`
-  }
-
-  render() {
-    return (
-      <div>
-        <div style={styles.header}>
-          <div>
-            <h1>{this.props.project.name}</h1>
-            <h3>Sprint №{this.props.project.sprint.number}</h3>
-            <span>{this.props.project.sprint.timestemps}</span>
-          </div>
-
-          <div style={{justifyContent: 'flex-end'}}>
-            <h1>{this.getStoryPoints()}</h1>
-          </div>
-        </div>
-
-        <Line data={this.getData()} options={this.getOptions()}/>
-      </div>
-    )
+    }]
   }
 }
+
+const getRandomChartData = () => {
+  return {
+    labels: [1, 2, 3, 4, 5, 6],
+    datasets: [{
+      type: 'line',
+      label: 'Planned',
+      data: _.map(_.range(1, 7), (i) => { return _.random(5, 25) }),
+      fill: false,
+      lineTension: 0
+    }, {
+      type: 'line',
+      label: 'Realized',
+      data: _.map(_.range(1, 7), (i) => { return _.random(5, 25) }),
+      fill: false,
+      lineTension: 0
+    }]
+  }
+}
+
+const getStoryPoints = (points) => {
+  return `SP: ${points.realized} / ${points.planned}`
+}
+
+const BurnDownChart = ({state}) => (
+  <div>
+    <div style={styles.header}>
+      <div>
+        <h1>{state.project.name}</h1>
+        <h3>Sprint №{state.project.sprint.number}</h3>
+        <span>{state.project.sprint.timestemps}</span>
+      </div>
+      <div style={{justifyContent: 'flex-end'}}>
+        <h1>{getStoryPoints(state.project.sprint.storyPoints)}</h1>
+      </div>
+    </div>
+    <Line data={getRandomChartData()} options={options}/>
+  </div>
+)
+
+const mapStateToProps = (state, ownProps) => ({
+  state: ownProps
+})
 
 BurnDownChart.propTypes = {
   project: PropTypes.object.isRequired
 };
 
-export default BurnDownChart;
+export default connect(
+  mapStateToProps
+)(BurnDownChart)
