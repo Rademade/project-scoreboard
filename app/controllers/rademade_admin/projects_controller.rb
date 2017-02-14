@@ -5,14 +5,14 @@ class RademadeAdmin::ProjectsController < RademadeAdmin::ModelController
 
     form do
       name
-      jira_api_key
+      jira_account
       users
     end
 
     labels do
       name 'Название'
-      jira_api_key 'Jira API ключ'
-      users 'Пользователи'
+      jira_account 'Jira Аккаунт'
+      users 'Команда'
     end
   end
 end

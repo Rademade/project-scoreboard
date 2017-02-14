@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   mount RademadeAdmin::Engine => '/admin'
 
   namespace :rademade_admin, path: 'admin' do
+    admin_resources :jira_accounts
     admin_resources :projects
     admin_resources :roles
     admin_resources :users

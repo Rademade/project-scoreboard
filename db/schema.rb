@@ -15,12 +15,20 @@ ActiveRecord::Schema.define(version: 20170210203222) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "jira_accounts", force: :cascade do |t|
+    t.string   "username"
+    t.string   "password"
+    t.string   "site"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string   "name"
-    t.string   "jira_host"
-    t.string   "jira_api_key"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.integer  "jira_account_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["jira_account_id"], name: "index_projects_on_jira_account_id", using: :btree
   end
 
   create_table "projects_users", id: false, force: :cascade do |t|
