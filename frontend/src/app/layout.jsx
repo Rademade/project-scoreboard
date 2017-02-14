@@ -20,9 +20,7 @@ const muiTheme = getMuiTheme({
 
 // ###########  TMP DEBUG  #################
 import {fetchProjects} from 'actions'
-store.dispatch(fetchProjects()).then(() =>
-  console.log(store.getState())
-)
+store.dispatch(fetchProjects())
 // #########################################
 
 const Layout = () => (

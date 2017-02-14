@@ -17,4 +17,8 @@ project.jira_account = JiraAccount.create({
   password: 'rademade'
 })
 
+project.jira_helper_field = JiraHelperField.create({
+  rapid_view_id: 19
+})
+
 project.save

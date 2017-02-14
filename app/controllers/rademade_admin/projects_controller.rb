@@ -5,14 +5,16 @@ class RademadeAdmin::ProjectsController < RademadeAdmin::ModelController
 
     form do
       name
-      jira_account
       users
+      jira_account
+      jira_helper_field
     end
 
     labels do
       name 'Название'
-      jira_account 'Jira Аккаунт'
       users 'Команда'
+      jira_account 'Jira Аккаунт'
+      jira_helper_field 'Jira поля хелперы'
     end
   end
 end
