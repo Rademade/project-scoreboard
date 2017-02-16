@@ -15,7 +15,7 @@ Bundler.require(*Rails.groups)
 module Scoreboard
   class Application < Rails::Application
     config.to_prepare do
-      require 'scoreboard_core'
+      require 'services'
     end
 
     config.assets.initialize_on_precompile = true

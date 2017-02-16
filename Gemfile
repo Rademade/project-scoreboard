@@ -9,6 +9,7 @@ gem 'rademade_admin',
 
 gem 'puma', '~> 3.0'
 gem 'jira-ruby', require: 'jira-ruby'
+gem 'parallel'
 
 group :development, :test do
   gem 'rack-cors', require: 'rack/cors'

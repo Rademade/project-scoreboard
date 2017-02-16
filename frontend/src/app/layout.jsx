@@ -8,6 +8,7 @@ import {grey500} from 'material-ui/styles/colors'
 import Header from 'components/Header'
 import routes from './routes'
 import store from './store'
+import {fetchProjects} from 'actions'
 
 injectTapEventPlugin()
 
@@ -18,10 +19,7 @@ const muiTheme = getMuiTheme({
   },
 })
 
-// ###########  TMP DEBUG  #################
-import {fetchProjects} from 'actions'
 store.dispatch(fetchProjects())
-// #########################################
 
 const Layout = () => (
   <Provider store={store} key="provider">

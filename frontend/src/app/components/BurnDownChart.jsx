@@ -39,25 +39,33 @@ const getRandomChartData = () => {
   }
 }
 
-const getStoryPoints = (points) => {
-  return `SP: ${points.realized} / ${points.planned}`
+const getStoryPoints = (sprint) => {
+  var story_points = _.sumBy(sprint.issues, 'story_points')
+  var ready_story_points = 0
+  return `SP: ${ready_story_points} / ${story_points}`
 }
 
-const BurnDownChart = ({state}) => (
-  <div>
-    <div style={styles.header}>
+const BurnDownChart = ({state}) => {
+  if (state.project) {
+    return (
       <div>
-        <h1>{state.project.name}</h1>
-        <h3>Sprint №{state.project.sprint.number}</h3>
-        <span>{state.project.sprint.timestemps}</span>
+        <div style={styles.header}>
+          <div>
+            <h1>{state.project.name}</h1>
+            <h3>Sprint №{state.project.sprint.number}</h3>
+            <span>{state.project.sprint.timestemps}</span>
+          </div>
+          <div style={{justifyContent: 'flex-end'}}>
+            <h1>{getStoryPoints(state.project.sprint)}</h1>
+          </div>
+        </div>
+        <Line data={getRandomChartData()} options={options}/>
       </div>
-      <div style={{justifyContent: 'flex-end'}}>
-        <h1>{getStoryPoints(state.project.sprint.storyPoints)}</h1>
-      </div>
-    </div>
-    <Line data={getRandomChartData()} options={options}/>
-  </div>
-)
+    )
+  } else {
+    return null
+  }
+}
 
 const mapStateToProps = (state, ownProps) => ({
   state: ownProps

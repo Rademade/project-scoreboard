@@ -2,21 +2,21 @@ import {
   FETCH_PROJECTS_REQUEST,
   FETCH_PROJECTS_REQUEST_SUCCESS,
   FETCH_PROJECTS_REQUEST_FAILURE
-} from 'constants';
+} from 'constants'
 
 import * as _ from 'lodash'
 
 export function projectReducer(state, action) {
   switch (action.type) {
     case FETCH_PROJECTS_REQUEST:
-      return state;
+      return state
     case FETCH_PROJECTS_REQUEST_SUCCESS:
-      console.log(action.projects)
-
-      return action.projects;
+      return {
+        projects: action.projects
+      }
     case FETCH_PROJECTS_REQUEST_FAILURE:
-      return state;
+      return state
     default:
-      return state;
+      return state
   }
 }

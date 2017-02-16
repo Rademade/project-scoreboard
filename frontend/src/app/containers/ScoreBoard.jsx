@@ -24,9 +24,7 @@ const styles = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  state: {
-    projects: []
-  }
+  state
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({})
@@ -37,8 +35,8 @@ const ScoreBoard = ({state, actions}) => (
       {state.projects.map((project) => (
         <GridTile key={project.name} style={styles.gridTile}>
           <BurnDownChart project={project}/>
-        </GridTile>
-      ))}
+        </GridTile>)
+      )}
     </GridList>
   </div>
 )
