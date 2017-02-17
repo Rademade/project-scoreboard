@@ -15,7 +15,9 @@ export function projectReducer(state, action) {
         projects: action.projects
       }
     case FETCH_PROJECTS_REQUEST_FAILURE:
-      return state
+      return {
+        error: action.error.toString()
+      }
     default:
       return state
   }

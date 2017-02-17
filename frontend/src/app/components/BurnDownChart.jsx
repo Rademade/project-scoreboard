@@ -39,33 +39,30 @@ const getRandomChartData = () => {
   }
 }
 
-const getStoryPoints = (sprint) => {
+const getProgress = (sprint) => {
   var story_points = _.sumBy(sprint.issues, 'story_points')
-  var ready_story_points = 0
-  return `SP: ${ready_story_points} / ${story_points}`
+  return `SP: 0 / ${story_points}`
 }
 
-const BurnDownChart = ({state}) => {
-  if (state.project) {
-    return (
-      <div>
-        <div style={styles.header}>
-          <div>
-            <h1>{state.project.name}</h1>
-            <h3>Sprint №{state.project.sprint.number}</h3>
-            <span>{state.project.sprint.timestemps}</span>
-          </div>
-          <div style={{justifyContent: 'flex-end'}}>
-            <h1>{getStoryPoints(state.project.sprint)}</h1>
-          </div>
-        </div>
-        <Line data={getRandomChartData()} options={options}/>
-      </div>
-    )
-  } else {
-    return null
-  }
+const getTimestemps = (timestemps) => {
+  return '06/02 - 12/02'
 }
+
+const BurnDownChart = ({state}) => (
+  <div>
+    <div style={styles.header}>
+      <div>
+        <h1>{state.project.name}</h1>
+        <h3>Sprint №{state.project.current_sprint.number}</h3>
+        <span>{getTimestemps(state.project.current_sprint.timestemps)}</span>
+      </div>
+      <div style={{justifyContent: 'flex-end'}}>
+        <h1>{getProgress(state.project.current_sprint)}</h1>
+      </div>
+    </div>
+    <Line data={getRandomChartData()} options={options}/>
+  </div>
+)
 
 const mapStateToProps = (state, ownProps) => ({
   state: ownProps

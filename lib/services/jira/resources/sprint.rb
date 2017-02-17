@@ -2,24 +2,28 @@ module Services
   module Jira
     module Resources
       class Sprint
-        attr_reader :client, :rapid_view_id
+        attr_reader :client, :helper_field
 
-        def initialize(client, rapid_view_id)
+        def initialize(client, helper_field)
           @client = client
-          @rapid_view_id = rapid_view_id
+          @helper_field = helper_field
         end
 
         def find_current_sprint
           {
             number: sprint['name'][/\d+/],
-            issues: serialize_issues(current_sprint['issues'])
+            issues: serialize_issues(current_sprint['issues']),
+            timestamps: {
+              started_at: Time.now.beginning_of_week,
+              ended_at: Time.now.end_of_week
+            }
           }
         end
 
         private
 
         def sprints
-          @sprints ||= client.Sprint.all(rapid_view_id)['sprints']
+          @sprints ||= client.Sprint.all(helper_field.rapid_view_id)['sprints']
         end
 
         def sprint
@@ -38,12 +42,10 @@ module Services
           end
         end
 
-        # TODO add /customfields/ to jira helper fields
         def serialize_issue(issue)
           {
-            summary: issue['summary'],
-            story_points: issue['customfield_10022'].to_i,
-            status: issue['customfield_10020']
+            story_points: issue[helper_field.story_points_field].to_i,
+            status: issue[helper_field.story_status_field]
           }
         end
 

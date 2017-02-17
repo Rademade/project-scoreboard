@@ -25,8 +25,10 @@ ActiveRecord::Schema.define(version: 20170210203222) do
 
   create_table "jira_helper_fields", force: :cascade do |t|
     t.integer  "rapid_view_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.string   "story_points_field"
+    t.string   "story_status_field"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "projects", force: :cascade do |t|

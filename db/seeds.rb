@@ -18,7 +18,9 @@ project.jira_account = JiraAccount.create({
 })
 
 project.jira_helper_field = JiraHelperField.create({
-  rapid_view_id: 19
+  rapid_view_id: 19,
+  story_points_field: 'customfield_10022',
+  story_status_field: 'customfield_10020'
 })
 
 project.save
