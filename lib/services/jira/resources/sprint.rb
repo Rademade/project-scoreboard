@@ -45,6 +45,8 @@ module Services
         def serialize_issue(issue)
           if story_points = issue[helper_field.story_points_field]
             {
+              issue: issue,
+              updated: issue['updated'],
               status: issue.dig('resolution', 'name'),
               summary: issue['summary'],
               story_points: story_points

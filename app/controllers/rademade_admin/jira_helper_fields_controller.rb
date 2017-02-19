@@ -5,10 +5,12 @@ class RademadeAdmin::JiraHelperFieldsController < RademadeAdmin::ModelController
 
     form do
       rapid_view_id
+      story_points_field
     end
 
     labels do
       rapid_view_id 'ID быстрого просмотра'
+      story_points_field 'Story points field'
     end
   end
 end

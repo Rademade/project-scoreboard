@@ -30,7 +30,7 @@ module Services
           users.map do |user|
             {
               name: [user.first_name, user.last_name].join(' '),
-              role: user.role.try(:name)
+              role: user.role.name
             }
           end
         end
