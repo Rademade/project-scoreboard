@@ -39,14 +39,17 @@ module Services
         def serialize_issues(issues)
           Parallel.map(issues, in_threads: 2) do |issue|
             serialize_issue issue['fields']
-          end
+          end.compact
         end
 
         def serialize_issue(issue)
-          {
-            story_points: issue[helper_field.story_points_field].to_i,
-            status: issue[helper_field.story_status_field]
-          }
+          if story_points = issue[helper_field.story_points_field]
+            {
+              status: issue.dig('resolution', 'name'),
+              summary: issue['summary'],
+              story_points: story_points
+            }
+          end
         end
 
       end

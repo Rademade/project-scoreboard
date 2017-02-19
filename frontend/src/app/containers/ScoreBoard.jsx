@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {GridList, GridTile} from 'material-ui/GridList'
 import BurnDownChart from 'components/BurnDownChart'
+import BurnDownChartHeader from 'components/BurnDownChartHeader'
+import UserList from 'components/UserList'
 import * as Actions from 'actions'
 import * as _ from 'lodash'
 import {
@@ -31,10 +33,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({})
 
 const ScoreBoard = ({state, actions}) => (
   <div style={styles.root}>
-    <GridList cellHeight={450} style={styles.gridList}>
+    <GridList cellHeight={500} style={styles.gridList}>
       {state.projects.map((project) => (
         <GridTile key={project.name} style={styles.gridTile}>
+          <BurnDownChartHeader project={project}/>
           <BurnDownChart project={project}/>
+          <UserList users={project.users}/>
         </GridTile>)
       )}
     </GridList>

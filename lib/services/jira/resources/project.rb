@@ -12,7 +12,7 @@ module Services
         def serialize
           {
             name: project.name,
-            users: project.users,
+            users: serialize_users(project.users),
             current_sprint: current_sprint
           }
         end
@@ -24,6 +24,15 @@ module Services
             client,
             project.jira_helper_field
           ).find_current_sprint
+        end
+
+        def serialize_users(users)
+          users.map do |user|
+            {
+              name: [user.first_name, user.last_name].join(' '),
+              role: user.role.try(:name)
+            }
+          end
         end
 
       end

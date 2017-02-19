@@ -1,67 +1,41 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {Line} from 'react-chartjs-2'
+import moment from 'moment'
 import * as _ from 'lodash'
-
-const styles = {
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between'
-  }
-}
 
 const options = {
   scales: {
     yAxes: [{
       ticks: {
-        beginAtZero:true
+        beginAtZero: true
       }
     }]
   }
 }
 
-const getRandomChartData = () => {
+const getSprintChartData = (sprint) => {
+  var started_at = moment(sprint.timestamps.started_at);
+  var ended_at = moment(sprint.timestamps.ended_at);
+  var diff = ended_at.diff(started_at, 'days');
+  var labels = _.map(_.range(diff + 1), (i) => {
+    return (i == 0) ? started_at.format("ddd D") : started_at.add(1, 'days').format("ddd D");
+  });
+
   return {
-    labels: [1, 2, 3, 4, 5, 6],
+    labels: labels,
     datasets: [{
       type: 'line',
-      label: 'Planned',
-      data: _.map(_.range(1, 7), (i) => { return _.random(5, 25) }),
-      fill: false,
-      lineTension: 0
-    }, {
-      type: 'line',
-      label: 'Realized',
-      data: _.map(_.range(1, 7), (i) => { return _.random(5, 25) }),
+      label: 'Burndown',
+      data: _.map(_.range(7), (i) => { return _.random(0, 10) }),
       fill: false,
       lineTension: 0
     }]
   }
 }
 
-const getProgress = (sprint) => {
-  var story_points = _.sumBy(sprint.issues, 'story_points')
-  return `SP: 0 / ${story_points}`
-}
-
-const getTimestemps = (timestemps) => {
-  return '06/02 - 12/02'
-}
-
 const BurnDownChart = ({state}) => (
-  <div>
-    <div style={styles.header}>
-      <div>
-        <h1>{state.project.name}</h1>
-        <h3>Sprint №{state.project.current_sprint.number}</h3>
-        <span>{getTimestemps(state.project.current_sprint.timestemps)}</span>
-      </div>
-      <div style={{justifyContent: 'flex-end'}}>
-        <h1>{getProgress(state.project.current_sprint)}</h1>
-      </div>
-    </div>
-    <Line data={getRandomChartData()} options={options}/>
-  </div>
+  <Line data={getSprintChartData(state.project.current_sprint)} options={options}/>
 )
 
 const mapStateToProps = (state, ownProps) => ({

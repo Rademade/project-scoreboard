@@ -21,6 +21,10 @@ const muiTheme = getMuiTheme({
 
 store.dispatch(fetchProjects())
 
+// setInterval(() => {
+//   store.dispatch(fetchProjects())
+// }, 10000);
+
 const Layout = () => (
   <Provider store={store} key="provider">
     <MuiThemeProvider muiTheme={muiTheme}>
