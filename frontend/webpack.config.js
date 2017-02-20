@@ -7,15 +7,16 @@ module.exports = {
     historyApiFallback: true,
     hot: true,
     inline: true,
-    progress: true,
+    //progress: true,
     contentBase: './src',
     port: 3000
   },
-  entry: [
-    'webpack/hot/dev-server',
-    'webpack-dev-server/client?http://localhost:3000',
-    path.resolve(__dirname, 'src/app.jsx')
-  ],
+  entry: {
+    //"hotServer": "webpack/hot/dev-server",
+    //webpackServer: 'webpack-dev-server/client?http://localhost:3000',
+    path: path.resolve(__dirname, 'src/app.jsx')
+
+  },
   output: {
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
@@ -34,8 +35,8 @@ module.exports = {
     }]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.css'],
-    root: path.resolve('src'),
+    extensions: ['.js', '.jsx', '.css'],
+    //root: path.resolve('src'),
     alias: {
       components: path.resolve('src/app/components'),
       containers: path.resolve('src/app/containers'),
