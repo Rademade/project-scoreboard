@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import moment from 'moment'
-import * as _ from 'lodash'
 
 const styles = {
   display: 'flex',
@@ -18,13 +17,11 @@ const getSprintTimestamps = (sprint) => {
   return sprint ? [
     moment(sprint.timestamps.started_at).format("D/M"),
     moment(sprint.timestamps.ended_at).format("D/M")
-  ].join(' - ') : '-----'
+  ].join(' - ') : '- - - - -'
 }
 
 const getSprintNumber = (sprint) => {
-  return sprint
-    ? `Sprint ${state.project.sprint.number}`
-    : ''
+  return sprint ? `Sprint ${sprint.number}` : ''
 }
 
 const BurnDownChartHeader = ({state}) => (

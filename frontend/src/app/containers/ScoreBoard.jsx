@@ -1,12 +1,10 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import {GridList, GridTile} from 'material-ui/GridList'
 import BurnDownChart from 'components/BurnDownChart'
 import BurnDownChartHeader from 'components/BurnDownChartHeader'
 import UserList from 'components/UserList'
-import * as Actions from 'actions'
-import * as _ from 'lodash'
-import { API_ENDPOINT } from 'constants'
+import {API_ENDPOINT} from 'constants'
 
 const styles = {
   root: {
