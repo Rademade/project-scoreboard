@@ -15,8 +15,8 @@ const styles = {
 const UserList = ({state}) => (
   <div style={styles.wrapper}>
     {state.users.map((user) =>(
-      <Chip key={user.name}>
-       {user.role}: {user.name}
+      <Chip key={user.full_name}>
+       {user.role}: {user.full_name}
       </Chip>)
     )}
   </div>

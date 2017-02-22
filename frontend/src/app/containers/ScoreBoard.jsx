@@ -6,9 +6,7 @@ import BurnDownChartHeader from 'components/BurnDownChartHeader'
 import UserList from 'components/UserList'
 import * as Actions from 'actions'
 import * as _ from 'lodash'
-import {
-  API_ENDPOINT
-} from 'constants'
+import { API_ENDPOINT } from 'constants'
 
 const styles = {
   root: {

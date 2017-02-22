@@ -13,23 +13,23 @@ module Services
           {
             name: project.name,
             users: serialize_users(project.users),
-            current_sprint: current_sprint
+            sprint: sprint
           }
         end
 
         private
 
-        def current_sprint
-          @current_sprint ||= Services::Jira::Resources::Sprint.new(
+        def sprint
+          Services::Jira::Resources::Sprint.new(
             client,
             project.jira_helper_field
-          ).find_current_sprint
+          ).current_sprint
         end
 
         def serialize_users(users)
           users.map do |user|
             {
-              name: [user.first_name, user.last_name].join(' '),
+              full_name: user.full_name,
               role: user.role.name
             }
           end

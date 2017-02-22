@@ -15,11 +15,28 @@ const options = {
 }
 
 const getSprintChartData = (sprint) => {
-  var started_at = moment(sprint.timestamps.started_at);
-  var ended_at = moment(sprint.timestamps.ended_at);
-  var diff = ended_at.diff(started_at, 'days');
-  var labels = _.map(_.range(diff + 1), (i) => {
-    return (i == 0) ? started_at.format("ddd D") : started_at.add(1, 'days').format("ddd D");
+  let groups = _.map(_.groupBy(sprint.issues, (issue) => {
+    return issue.updated;
+  }), (issues, date) => {
+    return {
+      date: date,
+      issues: issues,
+      story_points: {
+        realized: _.sumBy(issues, 'story_points')
+      }
+    }
+  });
+
+  groups = _.sortBy(groups, (group) => {
+    return new Date(group.date);
+  });
+
+  let labels = _.map(groups, (group) => {
+    return moment(group.date).format("ddd D");
+  });
+
+  let data = _.map(groups, (group) => {
+    return group.story_points.realized
   });
 
   return {
@@ -27,7 +44,7 @@ const getSprintChartData = (sprint) => {
     datasets: [{
       type: 'line',
       label: 'Burndown',
-      data: _.map(_.range(7), (i) => { return _.random(0, 10) }),
+      data: data,
       fill: false,
       lineTension: 0
     }]
@@ -35,7 +52,9 @@ const getSprintChartData = (sprint) => {
 }
 
 const BurnDownChart = ({state}) => (
-  <Line data={getSprintChartData(state.project.current_sprint)} options={options}/>
+  state.project.sprint
+    ? (<Line data={getSprintChartData(state.project.sprint)} options={options}/>)
+    : (<h1>No Active Sprint</h1>)
 )
 
 const mapStateToProps = (state, ownProps) => ({
