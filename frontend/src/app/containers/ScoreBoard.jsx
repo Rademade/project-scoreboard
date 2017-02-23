@@ -29,6 +29,10 @@ const mapDispatchToProps = (dispatch, ownProps) => ({})
 
 const ScoreBoard = ({state, actions}) => (
   <div style={styles.root}>
+    {state.loading &&
+      <h1>Loading...</h1>
+    }
+
     <GridList cellHeight={500} style={styles.gridList}>
       {state.projects.map((project) => (
         <GridTile key={project.name} style={styles.gridTile}>

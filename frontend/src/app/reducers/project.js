@@ -8,7 +8,10 @@ import * as _ from 'lodash'
 export function projectReducer(state, action) {
   switch (action.type) {
     case FETCH_PROJECTS_REQUEST:
-      return state;
+      return {
+        projects: [],
+        loading: true
+      };
     case FETCH_PROJECTS_REQUEST_SUCCESS:
       let projects = _.map(action.projects, (project) => {
         if (project.sprint) {
@@ -23,16 +26,14 @@ export function projectReducer(state, action) {
           }
 
           project.sprint.issues = _.map(project.sprint.issues, (issue) => {
-            let date = new Date(issue.updated);
+            let date = new Date(issue.resolution_date);
             date.setHours(0, 0, 0, 0);
-            issue.updated = new Date(date);
+            issue.resolution_date = new Date(date);
             return issue;
           });
 
           project.sprint.progress = realized / planned;
-        }
-
-        return project;
+        }; return project;
       });
 
       projects =  _.orderBy(projects, (project) => {
@@ -40,11 +41,13 @@ export function projectReducer(state, action) {
       }, ['desc']);
 
       return {
-        projects: projects
+        projects: projects,
+        loading: false
       }
     case FETCH_PROJECTS_REQUEST_FAILURE:
       return {
-        error: action.error.toString()
+        error: action.error.toString(),
+        loading: false
       }
     default:
       return state

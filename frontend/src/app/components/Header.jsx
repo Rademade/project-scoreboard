@@ -4,7 +4,7 @@ import {browserHistory} from 'react-router'
 
 const Header = () => (
   <AppBar
-    title={'Scoreboard'}
+    title={'Score board'}
     onLeftIconButtonTouchTap={() => browserHistory.push('/')}
     onTitleTouchTap={() => browserHistory.push('/')}
   />

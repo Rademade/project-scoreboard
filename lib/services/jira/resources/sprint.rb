@@ -86,6 +86,7 @@ module Services
           if story_points = issue[helper_field.story_points_field]
             {
               updated: issue['updated'],
+              resolution_date: issue['resolutiondate'],
               status: issue.dig('resolution', 'name'),
               summary: issue['summary'],
               story_points: story_points

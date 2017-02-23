@@ -16,7 +16,7 @@ const options = {
 
 const getSprintChartData = (sprint) => {
   let groups = _.map(_.groupBy(sprint.issues, (issue) => {
-    return issue.updated;
+    return issue.resolution_date;
   }), (issues, date) => {
     return {
       date: date,
@@ -43,7 +43,7 @@ const getSprintChartData = (sprint) => {
     labels: labels,
     datasets: [{
       type: 'line',
-      label: 'Burndown',
+      label: 'Stoty points',
       data: data,
       fill: false,
       lineTension: 0
