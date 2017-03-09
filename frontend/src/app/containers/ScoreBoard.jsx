@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {GridList, GridTile} from 'material-ui/GridList'
+import CircularProgress from 'material-ui/CircularProgress'
 import BurnDownChart from 'components/BurnDownChart'
 import BurnDownChartHeader from 'components/BurnDownChartHeader'
 import UserList from 'components/UserList'
@@ -30,7 +31,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({})
 const ScoreBoard = ({state, actions}) => (
   <div style={styles.root}>
     {state.loading &&
-      <h1>Loading...</h1>
+      <CircularProgress size={80} thickness={5} style={{paddingTop: 200}}/>
     }
 
     <GridList cellHeight={500} style={styles.gridList}>
