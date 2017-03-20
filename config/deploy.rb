@@ -67,19 +67,16 @@ end
 desc 'Deploys the current version to the server.'
 task deploy: :environment do
   deploy do
-    invoke :'sidekiq:quiet'
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
     queue "#{bundle_bin} exec rake rademade_admin:bower:install"
     invoke :'rails:assets_precompile'
-
     invoke :build_frontend
 
 
     to :launch do
-      invoke :'sidekiq:restart'
       invoke :'deploy:cleanup'
       queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
     end
