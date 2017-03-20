@@ -12,7 +12,7 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
-    paddingTop: 25
+    paddingTop: 20
   },
   gridList: {
     width: '100%'

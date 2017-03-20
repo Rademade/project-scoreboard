@@ -15,8 +15,8 @@ const getSprintProgress = (sprint) => {
 
 const getSprintTimestamps = (sprint) => {
   return sprint ? [
-    moment(sprint.timestamps.started_at).format("D/M"),
-    moment(sprint.timestamps.ended_at).format("D/M")
+    moment(sprint.timestamps.started_at).format('D/M'),
+    moment(sprint.timestamps.ended_at).format('D/M')
   ].join(' - ') : '- - - - -'
 }
 
@@ -27,12 +27,12 @@ const getSprintNumber = (sprint) => {
 const BurnDownChartHeader = ({state}) => (
   <div style={styles}>
     <div>
-      <h1>{state.project.name}</h1>
+      <h2>{state.project.name}</h2>
       <h3>{getSprintNumber(state.project.sprint)}</h3>
       <span>{getSprintTimestamps(state.project.sprint)}</span>
     </div>
     <div style={{justifyContent: 'flex-end'}}>
-      <h1>{getSprintProgress(state.project.sprint)}</h1>
+      <h2>{getSprintProgress(state.project.sprint)}</h2>
     </div>
   </div>
 )
