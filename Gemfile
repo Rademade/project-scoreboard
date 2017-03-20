@@ -15,6 +15,7 @@ group :development, :test do
   gem 'rack-cors', require: 'rack/cors'
   gem 'pry'
   gem 'byebug', platform: :mri
+  gem 'pry-coolline'
 end
 
 group :development do

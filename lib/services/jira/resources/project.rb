@@ -11,6 +11,7 @@ module Services
 
         def serialize
           {
+            id: project.id,
             name: project.name,
             users: serialize_users(project.users),
             sprint: sprint

@@ -17,7 +17,7 @@ const getSprintTimestamps = (sprint) => {
   return sprint ? [
     moment(sprint.timestamps.started_at).format('D/M'),
     moment(sprint.timestamps.ended_at).format('D/M')
-  ].join(' - ') : '- - - - -'
+  ].join(' - ') : ''
 }
 
 const getSprintNumber = (sprint) => {

@@ -1,13 +1,11 @@
 class Api::V1::ProjectsController < Api::ApplicationController
   def index
-    render json: projects
+    render json: Project.select(:id, :name)
   end
 
-  private
-
-  def projects
-    Parallel.map(Project.with_tuned_jira, in_threads: 2) do |project|
-      Services::Jira::Resources::Project.new(project).serialize
-    end
+  def show
+    render json: Services::Jira::Resources::Project.new(
+      Project.find(params[:id])
+    ).serialize
   end
 end

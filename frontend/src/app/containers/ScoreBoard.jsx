@@ -1,10 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {GridList, GridTile} from 'material-ui/GridList'
-import CircularProgress from 'material-ui/CircularProgress'
-import BurnDownChart from 'components/BurnDownChart'
-import BurnDownChartHeader from 'components/BurnDownChartHeader'
-import UserList from 'components/UserList'
+import {GridList} from 'material-ui/GridList'
+import Tile from 'components/Tile'
 import {API_ENDPOINT} from 'constants'
 
 const styles = {
@@ -16,9 +13,6 @@ const styles = {
   },
   gridList: {
     width: '100%'
-  },
-  gridTile: {
-    padding: 10
   }
 }
 
@@ -30,17 +24,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({})
 
 const ScoreBoard = ({state, actions}) => (
   <div style={styles.root}>
-    {state.loading &&
-      <CircularProgress size={80} thickness={5} style={{paddingTop: 200}}/>
-    }
-
     <GridList cellHeight={500} style={styles.gridList}>
-      {state.projects.map((project) => (
-        <GridTile key={project.name} style={styles.gridTile}>
-          <BurnDownChartHeader project={project}/>
-          <BurnDownChart project={project}/>
-          <UserList users={project.users}/>
-        </GridTile>)
+      {state.projects.map(
+        (project) => (<Tile key={project.name} project={project} key={project.id} key={project.id}/>)
       )}
     </GridList>
   </div>

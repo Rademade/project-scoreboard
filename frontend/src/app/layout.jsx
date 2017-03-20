@@ -14,14 +14,13 @@ injectTapEventPlugin()
 const muiTheme = getMuiTheme({
   appBar: {
     height: 55
-  },
+  }
 })
 
 store.dispatch(fetchProjects())
-
 setInterval(() => {
   store.dispatch(fetchProjects())
-}, 60000);
+}, 60000)
 
 const Layout = () => (
   <Provider store={store} key="provider">

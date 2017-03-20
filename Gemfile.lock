@@ -90,6 +90,8 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.2)
     configurations (2.2.2)
+    coolline (0.5.0)
+      unicode_utils (~> 1.4)
     ejs (1.1.1)
     erubis (2.7.0)
     execjs (2.7.0)
@@ -149,6 +151,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-coolline (0.2.5)
+      coolline (~> 0.5)
     puma (3.6.2)
     rack (2.0.1)
     rack-cors (0.4.0)
@@ -215,6 +219,7 @@ GEM
     turbolinks-source (5.0.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    unicode_utils (1.4.0)
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -230,6 +235,7 @@ DEPENDENCIES
   parallel
   pg
   pry
+  pry-coolline
   puma (~> 3.0)
   rack-cors
   rademade_admin!
