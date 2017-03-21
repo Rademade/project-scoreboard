@@ -9,13 +9,9 @@ gem 'rademade_admin',
 
 gem 'puma', '~> 3.0'
 gem 'jira-ruby', require: 'jira-ruby'
-gem 'parallel'
 
 group :development, :test do
   gem 'rack-cors', require: 'rack/cors'
-  gem 'pry'
-  gem 'byebug', platform: :mri
-  gem 'pry-coolline'
 end
 
 group :development do

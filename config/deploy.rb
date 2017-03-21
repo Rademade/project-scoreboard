@@ -7,7 +7,7 @@ require 'mina/npm'
 require 'mina_sidekiq/tasks'
 
 set :domain, 'vm.rademade.com'
-set :port, 2230
+set :port, 2236
 set :branch, :master
 set :user, 'scoreboard'
 set :repository, 'git@github.com:Rademade/project-scoreboard.git'
@@ -74,7 +74,6 @@ task deploy: :environment do
     queue "#{bundle_bin} exec rake rademade_admin:bower:install"
     invoke :'rails:assets_precompile'
     invoke :build_frontend
-
 
     to :launch do
       invoke :'deploy:cleanup'

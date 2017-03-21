@@ -9,8 +9,8 @@ const styles = {
   wrapper: {
     display: 'flex',
     flexWrap: 'wrap',
-  },
-};
+  }
+}
 
 const UserList = ({state}) => (
   <div style={styles.wrapper}>
