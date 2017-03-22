@@ -1,19 +1,32 @@
 import {
   FETCH_PROJECTS_REQUEST,
   FETCH_PROJECTS_REQUEST_SUCCESS,
-  FETCH_PROJECTS_REQUEST_FAILURE
+  FETCH_PROJECTS_REQUEST_FAILURE,
+  FETCH_PROJECT_REQUEST,
+  FETCH_PROJECT_REQUEST_SUCCESS,
+  FETCH_PROJECT_REQUEST_FAILURE
 } from 'constants'
 import * as _ from 'lodash'
 
 export function projectReducer(state, action) {
   switch (action.type) {
-    case FETCH_PROJECTS_REQUEST:
+    case FETCH_PROJECT_REQUEST:
       return {
-        projects: [],
-        loading: true
-      };
-    case FETCH_PROJECTS_REQUEST_SUCCESS:
-      let projects = _.map(action.projects, (project) => {
+        ...state,
+        projects: _.map(state.projects, project => {
+          return project.id == action.payload.projectId
+            ? _.merge(project, {isPendingRequest: true})
+            : project
+        })
+      }
+    case FETCH_PROJECT_REQUEST_SUCCESS:
+      let projects = _.map(state.projects, project => {
+        return project.id == action.payload.project.id
+          ? _.merge(project, action.payload.project, {isPendingRequest: false})
+          : project
+      })
+
+      projects = _.map(projects, (project) => {
         if (project.sprint) {
           let planned = _.sumBy(project.sprint.issues, 'story_points');
           let realized = _.sumBy(_.filter(project.sprint.issues, (issue) => {
@@ -41,13 +54,35 @@ export function projectReducer(state, action) {
       }, ['desc']);
 
       return {
-        projects: projects,
-        loading: false
+        ...state,
+        projects: projects
+      }
+    case FETCH_PROJECT_REQUEST_FAILURE:
+      return {
+        ...state,
+        isPendingRequest: false,
+        projects: _.map(state.projects, project => {
+          return project.id == action.payload.projectId
+            ? _.merge(project, {error: action.payload.error.toString()})
+            : project
+        })
+      }
+    case FETCH_PROJECTS_REQUEST:
+      return {
+        ...state,
+        isPendingRequest: true
+      }
+    case FETCH_PROJECTS_REQUEST_SUCCESS:
+      return {
+        ...state,
+        projects: action.payload.projects,
+        isPendingRequest: false
       }
     case FETCH_PROJECTS_REQUEST_FAILURE:
       return {
-        error: action.error.toString(),
-        loading: false
+        ...state,
+        error: action.payload.error,
+        isPendingRequest: false
       }
     default:
       return state

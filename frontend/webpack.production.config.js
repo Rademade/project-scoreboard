@@ -27,7 +27,15 @@ module.exports = {
     }]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.jsx', '.css'],
+    alias: {
+      components: path.resolve('src/app/components'),
+      containers: path.resolve('src/app/containers'),
+      constants: path.resolve('src/app/constants'),
+      reducers: path.resolve('src/app/reducers'),
+      actions: path.resolve('src/app/actions'),
+      assets: path.resolve('src/assets')
+    }
   },
   plugins: [
     new webpack.optimize.DedupePlugin(),
