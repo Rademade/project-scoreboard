@@ -4,7 +4,6 @@ require 'mina/rails'
 require 'mina/git'
 require 'mina/rvm'
 require 'mina/npm'
-require 'mina_sidekiq/tasks'
 
 set :domain, 'vm.rademade.com'
 set :port, 2236
