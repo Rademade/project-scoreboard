@@ -7,7 +7,6 @@ module.exports = {
     historyApiFallback: true,
     hot: true,
     inline: true,
-    //progress: true,
     contentBase: './src',
     port: 3000
   },
@@ -36,7 +35,6 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx', '.css'],
-    //root: path.resolve('src'),
     alias: {
       components: path.resolve('src/app/components'),
       containers: path.resolve('src/app/containers'),

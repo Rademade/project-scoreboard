@@ -9,15 +9,13 @@ gem 'rademade_admin',
 
 gem 'puma', '~> 3.0'
 gem 'jira-ruby', require: 'jira-ruby'
-gem 'parallel'
 
 group :development, :test do
   gem 'rack-cors', require: 'rack/cors'
-  gem 'pry'
-  gem 'byebug', platform: :mri
 end
 
 group :development do
+  gem 'mina', '~> 0.3.8'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
