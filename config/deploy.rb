@@ -11,7 +11,7 @@ set :branch, :master
 set :user, 'scoreboard'
 set :repository, 'git@github.com:Rademade/project-scoreboard.git'
 set :forward_agent, true
-set :deploy_to, '/home/project-scoreboard/website'
+set :deploy_to, '/home/scoreboard/website'
 set :shared_paths, ['log', 'public/uploads', 'config/secrets.yml', 'tmp/pids']
 
 ruby_version = File.read(File.join __dir__, '../.ruby-version').chomp
