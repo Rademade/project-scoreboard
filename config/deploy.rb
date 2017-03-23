@@ -12,7 +12,7 @@ set :user, 'scoreboard'
 set :repository, 'git@github.com:Rademade/project-scoreboard.git'
 set :forward_agent, true
 set :deploy_to, '/home/scoreboard/website'
-set :shared_paths, ['log', 'public/uploads', 'config/secrets.yml', 'tmp/pids']
+set :shared_paths, ['log', 'public/uploads']
 
 ruby_version = File.read(File.join __dir__, '../.ruby-version').chomp
 ruby_gemset = File.read(File.join __dir__, '../.ruby-gemset').chomp
@@ -36,7 +36,6 @@ task :setup => :environment do
   queue %[mkdir -p "#{deploy_to}/#{shared_path}/log"]
   queue %[mkdir -p "#{deploy_to}/#{shared_path}/config"]
   queue %[mkdir -p "#{deploy_to}/#{shared_path}/public/uploads"]
-  queue %[mkdir -p "#{deploy_to}/#{shared_path}/tmp/pids"]
   invoke :add_github_to_known_hosts
 end
 
