@@ -4,8 +4,8 @@ gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 gem 'pg'
 gem 'rademade_admin',
   git: 'git@github.com:Rademade/rademade_admin',
-  branch: 'feature/rails-5',
-  ref: 'c1c38615'
+  branch: 'bugfix/jquery_form_version',
+  ref: 'b1a52f5'
 
 gem 'puma', '~> 3.0'
 gem 'jira-ruby', require: 'jira-ruby'
