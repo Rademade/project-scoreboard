@@ -18,6 +18,12 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   config.active_support.deprecation = :log
   config.active_record.migration_error = :page_load
-
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  config.middleware.insert_before 0, 'Rack::Cors' do
+    allow do
+      origins '*'
+      resource '*', headers: :any, methods: :any
+    end
+  end
 end
