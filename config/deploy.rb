@@ -62,6 +62,11 @@ task :build_frontend do
   )}
 end
 
+desc 'Build Rademade Admin'
+task :build_rademade_admin do
+  queue "#{bundle_bin} exec rake rademade_admin:bower:install"
+end
+
 desc 'Deploys the current version to the server.'
 task deploy: :environment do
   deploy do
@@ -69,7 +74,7 @@ task deploy: :environment do
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
-    invoke "#{bundle_bin} exec rake rademade_admin:bower:install"
+    invoke :build_rademade_admin
     invoke :'rails:assets_precompile'
     invoke :build_frontend
 
