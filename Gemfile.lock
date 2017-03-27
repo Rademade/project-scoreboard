@@ -1,8 +1,8 @@
 GIT
   remote: git@github.com:Rademade/rademade_admin
-  revision: f3b96de27606d4cad4ffdb3504a1b939d3cd3265
-  ref: f3b96de
-  branch: bugfix/jquery_form_version
+  revision: bc8f5d799b5df9a564f93e582585fe748da60f44
+  ref: bc8f5d7
+  branch: feature/rails-5
   specs:
     rademade_admin (0.3.0)
       autoprefixer-rails
