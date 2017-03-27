@@ -69,7 +69,7 @@ task deploy: :environment do
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
-    queue "#{bundle_bin} exec rake rademade_admin:bower:install"
+    invoke "#{bundle_bin} exec rake rademade_admin:bower:install"
     invoke :'rails:assets_precompile'
     invoke :build_frontend
 
