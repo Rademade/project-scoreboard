@@ -5,7 +5,7 @@ gem 'pg'
 gem 'rademade_admin',
   git: 'git@github.com:Rademade/rademade_admin',
   branch: 'bugfix/jquery_form_version',
-  ref: 'b1a52f5'
+  ref: 'f3b96de'
 
 gem 'puma', '~> 3.0'
 gem 'jira-ruby', require: 'jira-ruby'

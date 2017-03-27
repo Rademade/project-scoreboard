@@ -1,7 +1,7 @@
 GIT
   remote: git@github.com:Rademade/rademade_admin
-  revision: b1a52f56af74f9013964c65eabbf988c831600f4
-  ref: b1a52f5
+  revision: f3b96de27606d4cad4ffdb3504a1b939d3cd3265
+  ref: f3b96de
   branch: bugfix/jquery_form_version
   specs:
     rademade_admin (0.3.0)
