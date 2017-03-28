@@ -34,6 +34,7 @@
     "redux-devtools": "^3.3.2",
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
+    "style-loader": "~0.13.1",
     "webpack": "latest"
   },
   "devDependencies": {
@@ -45,7 +46,6 @@
     "image-webpack-loader": "^3.2.0",
     "isomorphic-fetch": "^2.2.1",
     "open-browser-webpack-plugin": "0.0.3",
-    "style-loader": "~0.13.1",
     "url-loader": "^0.5.7",
     "webpack-dev-server": "latest"
   }
