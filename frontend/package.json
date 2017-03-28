@@ -27,7 +27,7 @@
     "redux-devtools": "^3.3.2",
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
-    "webpack": "latest",
+    "webpack": "latest"
   },
   "devDependencies": {
     "babel-core": "6.x",
