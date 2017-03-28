@@ -5,7 +5,7 @@ gem 'pg'
 gem 'rademade_admin',
   git: 'git@github.com:Rademade/rademade_admin',
   branch: 'feature/rails-5',
-  ref: 'bc8f5d7'
+  ref: '980f205'
 
 gem 'puma', '~> 3.0'
 gem 'jira-ruby', require: 'jira-ruby'
