@@ -20,7 +20,7 @@ module Scoreboard
 
     config.assets.initialize_on_precompile = true
     config.middleware.insert_before(Rack::Sendfile, LightResizer::Middleware, Rails.root)
-    config.i18n.default_locale = :ru
+    config.i18n.default_locale = :en
     config.time_zone = 'Kyiv'
     config.generators do |g|
       g.test_framework false

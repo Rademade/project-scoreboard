@@ -8,7 +8,6 @@ class User < Base
 
   validates :email, uniqueness: true
   validates :password, length: { minimum: 5 }, allow_nil: true
-  validates :role, presence: true
 
   def full_name
     "#{first_name} #{last_name}".strip
