@@ -15,14 +15,19 @@ export function projectReducer(state, action) {
         ...state,
         projects: _.map(state.projects, project => {
           return project.id == action.payload.projectId
-            ? _.merge(project, {isPendingRequest: true})
+            ? _.merge(project, {
+              isPendingRequest: true
+            })
             : project
         })
       }
     case FETCH_PROJECT_REQUEST_SUCCESS:
       let projects = _.map(state.projects, project => {
         return project.id == action.payload.project.id
-          ? _.merge(project, action.payload.project, {isPendingRequest: false})
+          ? _.merge(project, action.payload.project, {
+            isPendingRequest: false,
+            isLoadedEvenOneTime: true
+          })
           : project
       })
 
@@ -60,10 +65,13 @@ export function projectReducer(state, action) {
     case FETCH_PROJECT_REQUEST_FAILURE:
       return {
         ...state,
-        isPendingRequest: false,
         projects: _.map(state.projects, project => {
           return project.id == action.payload.projectId
-            ? _.merge(project, {error: action.payload.error.toString()})
+            ? _.merge(project, {
+              error: action.payload.error.toString(),
+              isPendingRequest: false,
+              isLoadedEvenOneTime: false
+            })
             : project
         })
       }
