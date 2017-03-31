@@ -1,16 +1,12 @@
 import React, {Component, PropTypes} from 'react'
+import LinearProgress from 'material-ui/LinearProgress'
 import {connect} from 'react-redux'
 import moment from 'moment'
 
-const styles = {
-  display: 'flex',
-  justifyContent: 'space-between'
-}
-
-const getSprintProgress = (sprint) => {
-  return sprint
-    ? `SP: ${sprint.story_points.realized} / ${sprint.story_points.planned}`
-    : 'SP: 0 / 0'
+const getProgress = (spring) => {
+  return spring
+    ? (spring.story_points.realized / spring.story_points.planned) * 100
+    : 0
 }
 
 const getSprintTimestamps = (sprint) => {
@@ -25,14 +21,14 @@ const getSprintNumber = (sprint) => {
 }
 
 const BurnDownChartHeader = ({state}) => (
-  <div style={styles}>
-    <div>
+  <div style={{marginBottom: 20}}>
+    <div style={{display: 'flex', justifyContent: 'space-between'}}>
       <h2>{state.project.name}</h2>
       <h3>{getSprintNumber(state.project.sprint)}</h3>
       <span>{getSprintTimestamps(state.project.sprint)}</span>
     </div>
     <div style={{justifyContent: 'flex-end'}}>
-      <h2>{getSprintProgress(state.project.sprint)}</h2>
+      <LinearProgress mode="determinate" value={getProgress(state.project.sprint)}/>
     </div>
   </div>
 )

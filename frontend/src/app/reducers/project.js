@@ -75,7 +75,7 @@ export default function projectReducer(state = initialState.projectReducer, acti
             ? _.merge(project, {
               error: action.payload.error.toString(),
               isPendingRequest: false,
-              isLoadedEvenOneTime: false
+              isLoadedEvenOneTime: true
             })
             : project
         })
