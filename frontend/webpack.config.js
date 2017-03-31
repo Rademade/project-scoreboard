@@ -11,10 +11,7 @@ module.exports = {
     port: 3000
   },
   entry: {
-    //"hotServer": "webpack/hot/dev-server",
-    //webpackServer: 'webpack-dev-server/client?http://localhost:3000',
     path: path.resolve(__dirname, 'src/app.jsx')
-
   },
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -41,6 +38,7 @@ module.exports = {
       constants: path.resolve('src/app/constants'),
       reducers: path.resolve('src/app/reducers'),
       actions: path.resolve('src/app/actions'),
+      store: path.resolve('src/app/store'),
       assets: path.resolve('src/assets')
     }
   },
