@@ -6,9 +6,10 @@ import {
   FETCH_PROJECT_REQUEST_SUCCESS,
   FETCH_PROJECT_REQUEST_FAILURE
 } from 'constants'
+import initialState from 'store/initial-state'
 import * as _ from 'lodash'
 
-export function projectReducer(state, action) {
+export default function projectReducer(state = initialState.projectReducer, action = {}) {
   switch (action.type) {
     case FETCH_PROJECT_REQUEST:
       return {
@@ -54,9 +55,13 @@ export function projectReducer(state, action) {
         }; return project;
       });
 
-      projects =  _.orderBy(projects, (project) => {
+      projects =  _.orderBy(projects, project => {
         return project.sprint ? project.sprint.progress : 0;
       }, ['desc']);
+
+      projects = _.orderBy(projects, project => {
+        return project.error
+      }, ['desc'])
 
       return {
         ...state,

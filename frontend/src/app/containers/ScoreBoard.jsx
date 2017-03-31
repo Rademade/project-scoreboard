@@ -46,7 +46,7 @@ const Tile = ({project}) => (
 )
 
 const mapStateToProps = (state, ownProps) => ({
-  state
+  state: state.projectApp
 })
 
 const ScoreBoard = ({state, actions}) => (
