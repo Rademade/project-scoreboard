@@ -8,7 +8,7 @@ import {routerMiddleware, push} from 'react-router-redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import reducers from 'reducers'
-import {fetchProjects} from 'actions/project'
+import {fetchProjects, fetchProject} from 'actions/project'
 
 const loggerMiddleware = createLogger()
 const reduxRouterMiddleware = routerMiddleware(browserHistory)
@@ -39,8 +39,10 @@ export default function configureStore(initialState) {
     store.dispatch(fetchProjects())
 
     setInterval(() => {
-      _.each(store.getState().projectApp.projects, project =>
-        dispatch(fetchProject(project.id))
+      _.each(store.getState().projectApp.projects, (project, index) =>
+        setTimeout(() => {
+          store.dispatch(fetchProject(project.id))
+        }, index * 5000)
       )
     }, 60000)
   }

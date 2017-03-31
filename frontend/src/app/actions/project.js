@@ -20,8 +20,6 @@ function requestProject(projectId) {
 }
 
 function requestProjectSuccess(project) {
-  console.log(project, 'project')
-
   return {
     type: FETCH_PROJECT_REQUEST_SUCCESS,
     payload: {
@@ -73,8 +71,10 @@ export function fetchProjects() {
     ).then(response => {
       dispatch(fetchProjectsSuccess(response.data))
 
-      _.each(response.data, project => {
-        dispatch(fetchProject(project.id))
+      _.each(response.data, (project, index) => {
+        setTimeout(() => {
+          dispatch(fetchProject(project.id))
+        }, index * 500)
       })
     }).catch(
       error => dispatch(fetchProjectsFailure(error))
