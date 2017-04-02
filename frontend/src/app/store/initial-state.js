@@ -1,5 +1,5 @@
 const initialState = {
-  projectReducer: {
+  projectApp: {
     projects: []
   }
 }

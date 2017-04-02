@@ -11,8 +11,8 @@ const getProgress = (spring) => {
 
 const getSprintTimestamps = (sprint) => {
   return sprint ? [
-    moment(sprint.timestamps.started_at).format('D/M'),
-    moment(sprint.timestamps.ended_at).format('D/M')
+    moment(sprint.started_at).format('D/M'),
+    moment(sprint.ended_at).format('D/M')
   ].join(' - ') : ''
 }
 
