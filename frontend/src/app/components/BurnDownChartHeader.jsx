@@ -4,15 +4,13 @@ import {connect} from 'react-redux'
 import moment from 'moment'
 
 const getProgress = (spring) => {
-  return spring
-    ? (spring.story_points.realized / spring.story_points.planned) * 100
-    : 0
+  return (spring.story_points.realized / spring.story_points.planned) * 100
 }
 
-const getSprintTimestamps = (sprint) => {
+const getSprintTimestamps = () => {
   return [
-    moment(sprint.started_at).format('D/M'),
-    moment(sprint.ended_at).format('D/M')
+    moment().startOf('week').format('DD/MM'),
+    moment().startOf('week').add(5, 'days').format('DD/MM')
   ].join(' - ')
 }
 
@@ -31,7 +29,7 @@ const BurnDownChartHeader = ({state}) => {
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
           <h2>{state.project.name}</h2>
           <h3>{getSprintNumber(state.project.sprint)}</h3>
-          <span>{getSprintTimestamps(state.project.sprint)}</span>
+          <span>{getSprintTimestamps()}</span>
         </div>
         <div style={{justifyContent: 'flex-end'}}>
           <LinearProgress mode="determinate" value={getProgress(state.project.sprint)}/>
