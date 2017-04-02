@@ -9,7 +9,7 @@ import {
 import initialState from 'store/initial-state'
 import * as _ from 'lodash'
 
-export default function projectReducer(state = initialState.projectReducer, action = {}) {
+export default function projectApp(state = initialState.projectApp, action = {}) {
   switch (action.type) {
     case FETCH_PROJECT_REQUEST:
       return {

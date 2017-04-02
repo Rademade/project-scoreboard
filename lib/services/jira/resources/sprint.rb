@@ -2,19 +2,20 @@ module Services
   module Jira
     module Resources
       class Sprint
-        attr_reader :client, :helper_field
+        attr_reader :project, :client
 
-        def initialize(client, helper_field)
-          @client = client
-          @helper_field = helper_field
+        def initialize(project)
+          @project = project
+          @client = Services::Jira::Client.new(project.jira_account).client
         end
 
         def current_sprint
           if active_sprint
             {
               number: number,
-              issues: issues,
-              timestamps: timestamps
+              issues: serialized_issues,
+              started_at: sprint_info['startDate'],
+              ended_at: sprint_info['endDate']
             }
           end
         end
@@ -26,27 +27,19 @@ module Services
         end
 
         def issues
-          Services::Jira::Serializers::Issues.new(
-            full_active_sprint['issues'],
-            helper_field.story_points_field
-          ).serialize
+          @issues ||= full_active_sprint['issues']
+        end
+
+        def serialized_issues
+          Services::Jira::Serializers::Issues.new(issues, project.jira_story_points_field).serialize
         end
 
         def sprint_info
-          @sprint_info ||= Services::Jira::Parsers::Issue.new(
-            full_active_sprint['issues'].first
-          ).sprint_info
-        end
-
-        def timestamps
-          {
-            started_at: sprint_info['startDate'],
-            ended_at: sprint_info['endDate']
-          }
+          @sprint_info ||= Services::Jira::Parsers::Issue.new(issues.first).sprint_info
         end
 
         def sprints
-          @sprints ||= client.Sprint.all(helper_field.rapid_view_id)['sprints']
+          @sprints ||= client.Sprint.all(project.jira_rapid_view_id)['sprints']
         end
 
         def active_sprint

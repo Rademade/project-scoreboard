@@ -2,11 +2,10 @@ module Services
   module Jira
     module Resources
       class Project
-        attr_reader :project, :client
+        attr_reader :project
 
         def initialize(project)
           @project = project
-          @client = Services::Jira::Client.new(project.jira_account).client
         end
 
         def serialize
@@ -21,10 +20,7 @@ module Services
         private
 
         def sprint
-          Services::Jira::Resources::Sprint.new(
-            client,
-            project.jira_helper_field
-          ).current_sprint
+          Services::Jira::Resources::Sprint.new(project).current_sprint
         end
 
         def serialize_users(users)

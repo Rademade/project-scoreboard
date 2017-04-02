@@ -37,6 +37,7 @@ module.exports = {
       containers: path.resolve('src/app/containers'),
       constants: path.resolve('src/app/constants'),
       reducers: path.resolve('src/app/reducers'),
+      services: path.resolve('src/app/services'),
       actions: path.resolve('src/app/actions'),
       store: path.resolve('src/app/store'),
       assets: path.resolve('src/assets')
