@@ -71,10 +71,8 @@ export function fetchProjects() {
     ).then(response => {
       dispatch(fetchProjectsSuccess(response.data))
 
-      _.each(response.data, (project, index) => {
-        setTimeout(() => {
-          dispatch(fetchProject(project.id))
-        }, index * 500)
+      _.each(response.data, project => {
+        dispatch(fetchProject(project.id))
       })
     }).catch(
       error => dispatch(fetchProjectsFailure(error))
