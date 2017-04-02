@@ -22,14 +22,21 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const BurnDownChartBody = ({state}) => {
-  if (!state.project.isLoadedEvenOneTime) return (<CircularProgress size={50} thickness={3}/>)
-  if (state.project.error) return (<h2>{state.project.error}</h2>)
-  return (state.project.sprint)
-    ? (<div>
-        <Line data={chart.getChartData(state.project.sprint)} options={options}/>
-        <UserList users={state.project.users}/>
-      </div>)
-    : (<h1>No Active Sprint</h1>)
+  if (state.project.isLoadedEvenOneTime) {
+    if (state.project.error) return (<h2>{state.project.error}</h2>)
+    if (state.project.sprint && state.project.sprint.issues && state.project.sprint.issues.length > 0) {
+      return (
+        <div>
+          <Line data={chart.getChartData(state.project.sprint)} options={options}/>
+          <UserList users={state.project.users}/>
+        </div>
+      )
+    }
+
+    return (<h1>No Active Sprint</h1>)
+  } else {
+    return (<CircularProgress size={50} thickness={3}/>)
+  }
 }
 
 BurnDownChartBody.propTypes = {
