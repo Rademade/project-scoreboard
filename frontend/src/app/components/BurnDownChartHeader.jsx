@@ -10,32 +10,44 @@ const getProgress = (spring) => {
 }
 
 const getSprintTimestamps = (sprint) => {
-  return sprint ? [
+  return [
     moment(sprint.started_at).format('D/M'),
     moment(sprint.ended_at).format('D/M')
-  ].join(' - ') : ''
+  ].join(' - ')
 }
 
 const getSprintNumber = (sprint) => {
-  return sprint ? `Sprint ${sprint.number}` : ''
+  return `Sprint ${sprint.number}`
 }
-
-const BurnDownChartHeader = ({state}) => (
-  <div style={{marginBottom: 20}}>
-    <div style={{display: 'flex', justifyContent: 'space-between'}}>
-      <h2>{state.project.name}</h2>
-      <h3>{getSprintNumber(state.project.sprint)}</h3>
-      <span>{getSprintTimestamps(state.project.sprint)}</span>
-    </div>
-    <div style={{justifyContent: 'flex-end'}}>
-      <LinearProgress mode="determinate" value={getProgress(state.project.sprint)}/>
-    </div>
-  </div>
-)
 
 const mapStateToProps = (state, ownProps) => ({
   state: ownProps
 })
+
+const BurnDownChartHeader = ({state}) => {
+  if (state.project.sprint) {
+    return (
+      <div style={{marginBottom: 20}}>
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+          <h2>{state.project.name}</h2>
+          <h3>{getSprintNumber(state.project.sprint)}</h3>
+          <span>{getSprintTimestamps(state.project.sprint)}</span>
+        </div>
+        <div style={{justifyContent: 'flex-end'}}>
+          <LinearProgress mode="determinate" value={getProgress(state.project.sprint)}/>
+        </div>
+      </div>
+    )
+  } else {
+    return (
+      <div style={{marginBottom: 20}}>
+        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+          <h2>{state.project.name}</h2>
+        </div>
+      </div>
+    )
+  }
+}
 
 BurnDownChartHeader.propTypes = {
   project: PropTypes.object.isRequired

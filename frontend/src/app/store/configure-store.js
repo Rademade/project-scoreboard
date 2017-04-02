@@ -39,10 +39,8 @@ export default function configureStore(initialState) {
     store.dispatch(fetchProjects())
 
     setInterval(() => {
-      _.each(store.getState().projectApp.projects, (project, index) =>
-        setTimeout(() => {
-          store.dispatch(fetchProject(project.id))
-        }, index * 5000)
+      _.each(store.getState().projectApp.projects, project =>
+        store.dispatch(fetchProject(project.id))
       )
     }, 60000)
   }
