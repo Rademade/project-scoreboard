@@ -11,10 +11,14 @@ const styles = {
     justifyContent: 'space-around',
   },
   gridList: {
-    overflowY: 'auto',
-    marginTop: 20,
-    marginBottom: 50,
-    width: '100%'
+    margin: 0,
+    width: '100%',
+    height: '100%'
+  },
+  tile: {
+    height: '50%',
+    padding: 10,
+    boxSizing: 'border-box'
   },
   paper: {
     padding: 20
@@ -27,9 +31,9 @@ const mapStateToProps = (state, ownProps) => ({
 
 const ScoreBoard = ({state, actions}) => (
   <div style={styles.root}>
-    <GridList cellHeight={400} cols={3} padding={20} style={styles.gridList}>
+    <GridList cellHeight={'50%'} cols={3} padding={0} style={styles.gridList}>
       {state.projects.map(project =>
-        (<GridTile key={project.id}>
+        (<GridTile style={styles.tile} key={project.id}>
           <Paper style={styles.paper}>
             <BurnDownChartHeader project={project}/>
             <BurnDownChartBody project={project}/>

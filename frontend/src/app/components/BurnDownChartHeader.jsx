@@ -26,21 +26,21 @@ const BurnDownChartHeader = ({state}) => {
   if (state.project.sprint) {
     return (
       <div style={{marginBottom: 20}}>
-        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-          <h2>{state.project.name}</h2>
-          <h3>{getSprintNumber(state.project.sprint)}</h3>
-          <span>{getSprintTimestamps()}</span>
+        <div style={{display: 'flex', justifyContent: 'space-between', paddingBottom: '10px'}}>
+          <span style={{fontSize: '24px', color: '#2ec783', lineHeight: '32px'}}>{state.project.name}</span>
+          <span style={{fontSize: '18px', color: '#4d4d4d', lineHeight: '36px', fontWeight: '300'}}>{getSprintNumber(state.project.sprint)}</span>
+          <span style={{fontSize: '13px', color: '#9e9e9e', lineHeight: '38px'}}>{getSprintTimestamps()}</span>
         </div>
         <div style={{justifyContent: 'flex-end'}}>
-          <LinearProgress mode="determinate" value={getProgress(state.project.sprint)}/>
+          <LinearProgress mode="determinate" value={getProgress(state.project.sprint)} color={'#2ec783'}/>
         </div>
       </div>
     )
   } else {
     return (
       <div style={{marginBottom: 20}}>
-        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-          <h2>{state.project.name}</h2>
+        <div style={{display: 'flex', justifyContent: 'space-between', paddingBottom: '10px'}}>
+          <span style={{fontSize: '24px', color: '#2ec783'}}>{state.project.name}</span>
         </div>
       </div>
     )
