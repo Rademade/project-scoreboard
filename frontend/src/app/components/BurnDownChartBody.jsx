@@ -7,8 +7,14 @@ import ChartService from 'services/chart'
 
 const chart = new ChartService()
 const options = {
-  scaleShowLabels : false,
   animation : false,
+  scaleShowLabels : false,
+  legend: {
+    display: false
+  },
+  tooltips: {
+    enabled: false
+  },
   scales: {
     yAxes: [{
       scaleLabel: {

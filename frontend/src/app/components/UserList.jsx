@@ -12,15 +12,24 @@ const styles = {
   }
 }
 
-const UserList = ({state}) => (
-  <div style={styles.wrapper}>
-    {state.users.map((user) =>(
-      <span key={user.full_name}>
-       {user.role}: {user.full_name}
+const UserList = ({state}) => {
+  let userRoles = _.groupBy(state.users, 'role');
+  return (<div style={styles.wrapper}>
+    { _.map( userRoles, ((users) => {
+      let roleName = _.first(users).role;
+      let usersCount = users.length;
+      let i = 0;
+      return (<span key={roleName}>
+        <span style={{ marginRight: '5px'}}>{roleName}:</span>
+        { users.map( (user) => {
+          ++i;
+          let sign = usersCount == i ? '' : ',';
+          return (<span style={{marginRight: '5px'}}>{user.full_name}{sign}</span>)
+        }) }
       </span>)
-    )}
-  </div>
-)
+    }) ) }
+  </div>)
+}
 
 const mapStateToProps = (state, ownProps) => ({
   state: ownProps
