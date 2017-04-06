@@ -23,7 +23,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const BurnDownChartBody = ({state}) => {
   if (state.project.isLoadedEvenOneTime) {
-    if (state.project.error) return (<h2>{state.project.error}</h2>)
+    if (state.project.error) return (<span style={{fontSize: '24px', color: '#4d4d4d'}}>{state.project.error}</span>)
     if (state.project.sprint && state.project.sprint.issues && state.project.sprint.issues.length > 0) {
       return (
         <div>
@@ -33,9 +33,9 @@ const BurnDownChartBody = ({state}) => {
       )
     }
 
-    return (<h1>No Active Sprint</h1>)
+    return (<span style={{fontSize: '24px', color: '#4d4d4d'}}>No Active Sprint</span>)
   } else {
-    return (<CircularProgress size={50} thickness={3}/>)
+    return (<CircularProgress size={50} thickness={3} color={'#2ec783'}/>)
   }
 }
 

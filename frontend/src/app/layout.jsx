@@ -5,7 +5,6 @@ import {Provider} from 'react-redux'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import Header from 'components/Header'
 import routes from './routes'
 import store from 'store/index'
 
@@ -17,7 +16,6 @@ const Layout = () => (
   <Provider store={store} key="provider">
     <MuiThemeProvider muiTheme={getMuiTheme()}>
       <div>
-        <Header/>
         <Router history={history} routes={routes}/>
       </div>
     </MuiThemeProvider>

@@ -5,6 +5,10 @@ const styles = {
   wrapper: {
     display: 'flex',
     flexWrap: 'wrap',
+    justifyContent: 'flex-end',
+    paddingTop: '20px',
+    color: '#4d4d4d',
+    fontSize: '13px'
   }
 }
 

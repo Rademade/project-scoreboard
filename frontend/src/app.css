@@ -1,7 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 html {
+  min-height: 100vh;
   font-family: 'Roboto', sans-serif;
   color: rgba(0, 0, 0, 0.870588);
   background-color: #FAFAFA;
 }
+
+
