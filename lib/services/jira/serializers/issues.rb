@@ -18,15 +18,13 @@ module Services
         private
 
         def serialize_issue(issue)
-          if story_points = issue[story_points_field]
-            {
-              updated: issue['updated'],
-              resolution_date: issue['resolutiondate'],
-              status: issue.dig('resolution', 'name'),
-              summary: issue['summary'],
-              story_points: story_points
-            }
-          end
+          {
+            updated: issue['updated'],
+            resolution_date: issue['resolutiondate'],
+            status: issue.dig('resolution', 'name'),
+            summary: issue['summary'],
+            story_points: issue[story_points_field]
+          }.merge(issue)
         end
 
       end
