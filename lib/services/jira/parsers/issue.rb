@@ -20,7 +20,7 @@ module Services
           end
 
           sprint_customfield_value = customfields.select do |key, value|
-            value.is_a?(Array)
+            value.is_a?(Array) && value.any?
           end.values[0]
 
           raw_string = sprint_customfield_value[0]
