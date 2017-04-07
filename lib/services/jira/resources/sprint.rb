@@ -6,7 +6,7 @@ module Services
 
         def initialize(project)
           @project = project
-          @client = Services::Jira::Client.new(project.jira_account).client
+          @client = Services::Jira::Client.new(project).client
         end
 
         def current_sprint
