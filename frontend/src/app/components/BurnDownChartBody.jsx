@@ -22,6 +22,9 @@ const options = {
         labelString: 'Story Points'
       }
     }]
+  },
+  legend: {
+    display: false
   }
 }
 
