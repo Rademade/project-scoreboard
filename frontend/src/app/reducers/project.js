@@ -34,24 +34,33 @@ export default function projectApp(state = initialState.projectApp, action = {})
 
       projects = _.map(projects, (project) => {
         if (project.sprint) {
-          let planned = _.sumBy(project.sprint.issues, 'story_points');
-          let realized = _.sumBy(_.filter(project.sprint.issues, (issue) => {
-            return issue.status == 'Done';
-          }), 'story_points');
+          if (project.sprint.issues.length > 0) {
+            let planned = _.sumBy(project.sprint.issues, 'story_points');
+            let realized = _.sumBy(_.filter(project.sprint.issues, (issue) => {
+              return issue.status == 'Done'
+            }), 'story_points')
 
-          project.sprint.story_points = {
-            planned: planned,
-            realized: realized
+            project.sprint.story_points = {
+              planned: planned,
+              realized: realized
+            }
+
+            project.sprint.issues = _.map(project.sprint.issues, (issue) => {
+              let date = new Date(issue.resolution_date)
+              date.setHours(0, 0, 0, 0)
+              issue.resolution_date = new Date(date)
+              return issue;
+            });
+
+            project.sprint.progress = realized / planned
+          } else {
+            project.sprint.progress = 0
+            project.sprint.story_points = {
+              planned: 1,
+              realized: 0
+            }
           }
 
-          project.sprint.issues = _.map(project.sprint.issues, (issue) => {
-            let date = new Date(issue.resolution_date);
-            date.setHours(0, 0, 0, 0);
-            issue.resolution_date = new Date(date);
-            return issue;
-          });
-
-          project.sprint.progress = realized / planned;
         }; return project;
       });
 
