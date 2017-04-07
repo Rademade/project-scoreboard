@@ -4,7 +4,7 @@ import * as _ from 'lodash'
 export default class ChartService {
   getChartData(sprint) {
     return {
-      labels: this.getLabels(),
+      labels: this.getLabels(sprint),
       datasets: this.getDatasets(sprint)
     }
   }
@@ -33,9 +33,9 @@ export default class ChartService {
     }]
 
     let totalRealizedStoryPoints = _.last(this.getRealizedSprintData(sprint))
-    _.each(this.getWeekDates(), date => {
+    _.each(this.getWeekDates(sprint), date => {
       if (new Date(date) > new Date()) {
-        let data = _.map(this.getWeekDates(), _date =>
+        let data = _.map(this.getWeekDates(sprint), _date =>
           (new Date(date) > new Date(_date)) ? null : totalRealizedStoryPoints
         )
 
@@ -43,7 +43,7 @@ export default class ChartService {
           fill: false,
           borderColor: 'rgba(255, 255, 255, .0)',
           pointBackgroundColor: '#e2431e',
-          pointRadius: 2,
+          pointRadius: 1,
           data: data
         })
       }
@@ -52,34 +52,36 @@ export default class ChartService {
     return datasets
   }
 
-  getWeekDates() {
-    let startOfWeek = moment().startOf('week')
-    return _.map(_.range(5), i => startOfWeek.add(1, 'days').toDate())
-  }
-
-  getSpendWeekDays() {
-    let today = moment(new Date())
-    let startOfWeek = moment().startOf('week')
-    let duration = moment.duration(today.diff(startOfWeek))
+  getWeekDates(sprint) {
+    let startOfSprintWeek = moment(sprint.started_at).startOf('week')
+    let endOfSprintWeek = moment(sprint.ended_at).endOf('week')
+    let duration = moment.duration(endOfSprintWeek.diff(startOfSprintWeek))
     let days = Math.round(duration.asDays())
-    if (days > 5) days = 5;
-    return _.map(_.range(days), _ => startOfWeek.add(1, 'days').toDate())
+    return _.map(_.range(days), day => moment(sprint.started_at).startOf('week').add(day, 'days').toDate())
   }
 
-  getRestWeekDays() {
+  getSpendWeekDays(sprint) {
+    let startOfSprintWeek = moment(sprint.started_at).startOf('week')
     let today = moment(new Date())
-    let endOfWeek = moment().endOf('week').subtract(1, 'days')
-    let duration = moment.duration(endOfWeek.diff(today))
+    let duration = moment.duration(today.diff(startOfSprintWeek))
     let days = Math.round(duration.asDays())
-    return _.map(_.range(days), _ => today.add(1, 'days').toDate())
+    return _.map(_.range(days), day => moment(sprint.started_at).startOf('week').add(day, 'days').toDate())
   }
 
-  getLabels() {
-    return _.map(this.getWeekDates(), date => moment(date).format('MMM D'))
+  getRestWeekDays(sprint) {
+    let today = moment(new Date())
+    let endOfSprintWeek = moment(sprint.ended_at).endOf('week')
+    let duration = moment.duration(endOfSprintWeek.diff(today))
+    let days = Math.round(duration.asDays())
+    return _.map(_.range(days), day => moment(new Date()).add(day, 'days').toDate())
+  }
+
+  getLabels(sprint) {
+    return _.map(this.getWeekDates(sprint), date => moment(date).format('MMM D'))
   }
 
   getPlannedSprintData(sprint) {
-    let dates = this.getWeekDates()
+    let dates = this.getWeekDates(sprint)
     let C = sprint.story_points.planned
     let k = C / (dates.length - 1)
     return _.map(_.range(dates.length), x => C - k * x)
@@ -87,7 +89,7 @@ export default class ChartService {
 
   getRealizedSprintData(sprint) {
     let data = []
-    _.each(this.getSpendWeekDays(), (date, index) => {
+    _.each(this.getSpendWeekDays(sprint), (date, index) => {
       let issues = _.filter(sprint.issues, issue => {
         return issue.status == 'Done'
           ? (new Date(date)).setHours(0, 0, 0, 0) == (new Date(issue.resolution_date)).setHours(0, 0, 0, 0)
