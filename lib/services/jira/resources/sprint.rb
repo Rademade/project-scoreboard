@@ -12,7 +12,7 @@ module Services
         def current_sprint
           if active_sprint
             {
-              number: number,
+              number: active_sprint['name'],
               issues: serialized_issues,
               started_at: sprint_info['startDate'],
               ended_at: sprint_info['endDate']
@@ -21,10 +21,6 @@ module Services
         end
 
         private
-
-        def number
-          active_sprint['name'].scan(/\d+/).last
-        end
 
         def issues
           @issues ||= full_active_sprint['issues']

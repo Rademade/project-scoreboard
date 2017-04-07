@@ -34,6 +34,10 @@ export default function projectApp(state = initialState.projectApp, action = {})
 
       projects = _.map(projects, (project) => {
         if (project.sprint) {
+          project.sprint.issues = _.filter(project.sprint.issues, issue =>
+            issue.story_points && issue.story_points > 0
+          )
+
           if (project.sprint.issues.length > 0) {
             let planned = _.sumBy(project.sprint.issues, 'story_points');
             let realized = _.sumBy(_.filter(project.sprint.issues, (issue) => {
