@@ -12,7 +12,7 @@ module Services
         def current_sprint
           if active_sprint
             {
-              number: active_sprint['name'],
+              name: active_sprint['name'],
               issues: serialized_issues,
               started_at: sprint_info['startDate'],
               ended_at: sprint_info['endDate']
