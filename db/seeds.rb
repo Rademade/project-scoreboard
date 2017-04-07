@@ -11,11 +11,11 @@ user.save
 # Ping-Pong
 project = Project.create({
   name: 'Ping-Pong',
-  jira_rapid_view_id: 25
+  jira_rapid_view_id: 25,
+  jira_site: 'https://rademade-pingpong.atlassian.net'
 })
 project.users << user
 project.jira_account = JiraAccount.create({
-  site: 'https://rademade-pingpong.atlassian.net',
   username: 'mp@rademade.com',
   password: 'rademade'
 })
