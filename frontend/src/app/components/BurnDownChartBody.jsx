@@ -20,6 +20,9 @@ const options = {
       scaleLabel: {
         display: false,
         labelString: 'Story Points'
+      },
+      ticks: {
+        beginAtZero: true
       }
     }]
   },
