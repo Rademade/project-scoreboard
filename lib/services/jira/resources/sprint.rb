@@ -43,9 +43,9 @@ module Services
         end
 
         def active_sprint
-          @active_sprint ||= sprints.bsearch do |sprint|
+          @active_sprint ||= sprints.select do |sprint|
             sprint['state'] == 'ACTIVE'
-          end
+          end.last
         end
 
         def full_active_sprint
