@@ -23,7 +23,7 @@ module Services
         private
 
         def number
-          active_sprint['name'][/\d+/]
+          active_sprint['name'].scan(/\d+/).last
         end
 
         def issues
