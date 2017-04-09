@@ -14,6 +14,7 @@ export default function projectApp(state = initialState.projectApp, action = {})
     case FETCH_PROJECT_REQUEST:
       return {
         ...state,
+        error: null,
         projects: _.map(state.projects, project => {
           return project.id == action.payload.projectId
             ? _.merge(project, {
@@ -78,6 +79,7 @@ export default function projectApp(state = initialState.projectApp, action = {})
 
       return {
         ...state,
+        error: null,
         projects: projects
       }
     case FETCH_PROJECT_REQUEST_FAILURE:
