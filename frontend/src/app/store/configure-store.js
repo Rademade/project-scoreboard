@@ -24,7 +24,7 @@ export default function configureStore(initialState) {
     applyMiddleware(
       reduxRouterMiddleware,
       thunkMiddleware,
-      loggerMiddleware
+      // loggerMiddleware
     ),
     DevTools.instrument()
   )

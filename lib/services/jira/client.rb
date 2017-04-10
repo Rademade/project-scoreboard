@@ -5,11 +5,11 @@ module Services
     class Client
       attr_reader :client
 
-      def initialize(project)
+      def initialize(jira_account)
         @client ||= JIRA::Client.new({
-          username: project.jira_account.username,
-          password: project.jira_account.password,
-          site: project.jira_site,
+          username: jira_account.username,
+          password: jira_account.password,
+          site: jira_account.site,
           context_path: '',
           auth_type: :basic
         })

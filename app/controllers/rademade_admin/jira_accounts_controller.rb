@@ -15,4 +15,12 @@ class RademadeAdmin::JiraAccountsController < RademadeAdmin::ModelController
       site 'Jira cайт'
     end
   end
+
+  def autocomplete_items
+    if params[:q].present?
+      JiraAccount.where("site LIKE ?", "%#{params[:q]}%").limit(25).all
+    else
+      JiraAccount.limit(25)
+    end
+  end
 end
