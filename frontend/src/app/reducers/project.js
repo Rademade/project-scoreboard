@@ -71,9 +71,13 @@ export default function projectApp(state = initialState.projectApp, action = {})
         }; return project;
       });
 
+      projects = _.orderBy(projects, project => {
+        return project.sprint
+      }, ['asc'])
+
       projects =  _.orderBy(projects, project => {
         return project.sprint ? project.sprint.progress : 0;
-      }, ['desc']);
+      }, ['desc'])
 
       projects = _.orderBy(projects, project => {
         return project.error

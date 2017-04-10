@@ -43,10 +43,7 @@ export default function configureStore(initialState) {
 
   if (typeof window !== 'undefined') {
     store.dispatch(fetchProjects())
-
-    setInterval(() => {
-      reload(store)
-    }, 60000)
+    setInterval(() => reload(store), 60000)
   }
 
   return store

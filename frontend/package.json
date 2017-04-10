@@ -41,14 +41,12 @@
     "webpack": "latest"
   },
   "devDependencies": {
-    "babel-eslint": "7.x",
     "babel-plugin-transform-runtime": "6.x",
     "babel-preset-react-hmre": "^1.1.1",
     "file-loader": "^0.10.0",
     "husky": "^0.12.0",
     "image-webpack-loader": "^3.2.0",
     "isomorphic-fetch": "^2.2.1",
-    "open-browser-webpack-plugin": "0.0.3",
     "url-loader": "^0.5.7",
     "webpack-dev-server": "latest"
   }
