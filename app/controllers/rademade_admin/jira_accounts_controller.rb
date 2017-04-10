@@ -17,7 +17,7 @@ class RademadeAdmin::JiraAccountsController < RademadeAdmin::ModelController
   end
 
   def autocomplete_items
-    if params[:q].present?
+    if params[:q].present? && params[:q].length > 0
       JiraAccount.where("site LIKE ?", "%#{params[:q]}%").limit(25).all
     else
       JiraAccount.limit(25)
