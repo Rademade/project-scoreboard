@@ -19,12 +19,18 @@ export const DevTools = createDevTools(
   </DockMonitor>
 )
 
+function reload(store) {
+  _.each(store.getState().projectApp.projects, (project, index) =>
+    setTimeout(() => store.dispatch(fetchProject(project.id)), 5000 * index)
+  )
+}
+
 export default function configureStore(initialState) {
   const enhancer = compose(
     applyMiddleware(
       reduxRouterMiddleware,
       thunkMiddleware,
-      // loggerMiddleware
+      loggerMiddleware
     ),
     DevTools.instrument()
   )
@@ -39,9 +45,7 @@ export default function configureStore(initialState) {
     store.dispatch(fetchProjects())
 
     setInterval(() => {
-      _.each(store.getState().projectApp.projects, project =>
-        store.dispatch(fetchProject(project.id))
-      )
+      reload(store)
     }, 60000)
   }
 

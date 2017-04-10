@@ -18,7 +18,8 @@ export default function projectApp(state = initialState.projectApp, action = {})
         projects: _.map(state.projects, project => {
           return project.id == action.payload.projectId
             ? _.merge(project, {
-              isPendingRequest: true
+              isPendingRequest: true,
+              error: null
             })
             : project
         })
@@ -28,7 +29,8 @@ export default function projectApp(state = initialState.projectApp, action = {})
         return project.id == action.payload.project.id
           ? _.merge(project, action.payload.project, {
             isPendingRequest: false,
-            isLoadedEvenOneTime: true
+            isLoadedEvenOneTime: true,
+            error: null
           })
           : project
       })
