@@ -35,7 +35,7 @@ module Services
         end
 
         def sprints
-          @sprints ||= client.Sprint.all(project.jira_rapid_view_id)['sprints']
+          @sprints ||= client.Sprint.all(project.jira_board_id)['sprints']
         end
 
         def active_sprint
