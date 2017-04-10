@@ -25,11 +25,11 @@ module Services
 
         def serialize_users(users)
           users.map do |user|
-            {
+            user.role ? {
               full_name: user.full_name,
               role: user.role.name
-            }
-          end
+            } : nil
+          end.compact
         end
 
       end
