@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170407154336) do
+ActiveRecord::Schema.define(version: 20170410055508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 20170407154336) do
   create_table "jira_accounts", force: :cascade do |t|
     t.string   "username"
     t.string   "password"
-    t.string   "site"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -28,7 +27,7 @@ ActiveRecord::Schema.define(version: 20170407154336) do
     t.integer  "jira_account_id"
     t.datetime "created_at",                                            null: false
     t.datetime "updated_at",                                            null: false
-    t.integer  "jira_rapid_view_id",                                    null: false
+    t.integer  "jira_board_id",                                         null: false
     t.string   "jira_story_points_field", default: "customfield_10022", null: false
     t.string   "jira_site"
     t.index ["jira_account_id"], name: "index_projects_on_jira_account_id", using: :btree
