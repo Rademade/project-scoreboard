@@ -14,18 +14,22 @@ const styles = {
 }
 
 const UserList = ({state}) => {
-  let userRoles = _.groupBy(state.users, 'role');
+  let groups = _.groupBy(state.users, 'role');
+
   return (<div style={styles.wrapper}>
-    { _.map( userRoles, ((users) => {
+    { _.map(groups, ((users) => {
       let roleName = _.first(users).role;
       let usersCount = users.length;
       let i = 0;
+
       return (<span key={roleName}>
         <span style={{ marginRight: '5px'}}>{roleName}:</span>
-        { users.map( (user) => {
+        { users.map(user => {
           ++i;
           let sign = usersCount == i ? '' : ',';
-          return (<span style={{marginRight: '5px'}}>{user.full_name}{sign}</span>)
+          return (<span style={{marginRight: '5px'}} key={user.full_name}>
+            {user.full_name}{sign}
+          </span>)
         }) }
       </span>)
     }) ) }
