@@ -15,7 +15,8 @@ module Services
               name: active_sprint['name'],
               issues: serialized_issues,
               started_at: sprint_info['startDate'],
-              ended_at: sprint_info['endDate']
+              ended_at: sprint_info['endDate'],
+              raw_issues: issues
             }
           end
         end

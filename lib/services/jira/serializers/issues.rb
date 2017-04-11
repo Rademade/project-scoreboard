@@ -23,7 +23,7 @@ module Services
             status: issue.dig('resolution', 'name'),
             summary: issue['summary'],
             story_points: issue[story_points_field]
-          }.merge(raw_issue: issue)
+          }
         end
 
       end
