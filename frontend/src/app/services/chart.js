@@ -90,11 +90,12 @@ export default class ChartService {
   getRealizedSprintData(sprint) {
     let data = []
     _.each(this.getSpendWeekDays(sprint), (date, index) => {
-      let issues = _.filter(sprint.issues, issue => {
-        return issue.status == 'Done'
-          ? (new Date(date)).setHours(0, 0, 0, 0) == (new Date(issue.resolution_date)).setHours(0, 0, 0, 0)
-          : false
-      })
+      let issues = _.filter(sprint.issues, issue => (
+        issue.status == 'Done' &&
+          (new Date(date)).setHours(0, 0, 0, 0) == (new Date(issue.resolution_date)).setHours(0, 0, 0, 0)
+      )
+
+      if (sprint.name == 'Sprint 17') console.log(_.sumBy(issues, 'story_points'))
 
       if (index > 0) {
         data.push(data[index - 1] - _.sumBy(issues, 'story_points'))
@@ -102,6 +103,8 @@ export default class ChartService {
         data.push(sprint.story_points.planned - _.sumBy(issues, 'story_points'))
       }
     })
+
+    if (sprint.name == 'Sprint 17') console.log(data)
 
     return data
   }
