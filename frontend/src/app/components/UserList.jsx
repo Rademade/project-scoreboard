@@ -37,7 +37,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 UserList.propTypes = {
   users: PropTypes.array.isRequired
-};
+}
 
 export default connect(
   mapStateToProps
