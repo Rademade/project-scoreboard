@@ -5,9 +5,14 @@ class User < Base
 
   has_and_belongs_to_many :projects
   belongs_to :role
+  acts_as_list scope: :role
 
   validates :email, uniqueness: true
   validates :password, length: { minimum: 5 }, allow_nil: true
+
+  scope :sorted_by_role, -> {
+    where.not(role_id: nil).joins(:role).order('roles.position')
+  }
 
   def full_name
     "#{first_name} #{last_name}".strip
