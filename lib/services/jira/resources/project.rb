@@ -12,7 +12,7 @@ module Services
           {
             id: project.id,
             name: project.name,
-            users: serialize_users(project.users),
+            users: serialized_users,
             sprint: sprint
           }
         end
@@ -23,13 +23,13 @@ module Services
           Services::Jira::Resources::Sprint.new(project).current_sprint
         end
 
-        def serialize_users(users)
-          users.map do |user|
-            user.role ? {
+        def serialized_users
+          project.users.sorted_by_role.map do |user|
+            {
               full_name: user.full_name,
               role: user.role.name
-            } : nil
-          end.compact
+            }
+          end
         end
 
       end

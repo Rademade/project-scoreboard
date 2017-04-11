@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 gem 'pg'
+gem 'acts_as_list'
 gem 'rademade_admin',
   git: 'git@github.com:Rademade/rademade_admin',
   branch: 'feature/rails-5',
