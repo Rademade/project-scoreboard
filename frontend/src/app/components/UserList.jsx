@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
+import * as _ from 'lodash'
 
 const styles = {
   wrapper: {
