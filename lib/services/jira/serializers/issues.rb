@@ -19,8 +19,7 @@ module Services
 
         def serialize_issue(issue)
           {
-            updated: issue['updated'],
-            resolution_date: issue['resolutiondate'],
+            resolution_date: issue['resolutiondate'] ? Date.parse(issue['resolutiondate']) : nil,
             status: issue.dig('resolution', 'name'),
             summary: issue['summary'],
             story_points: issue[story_points_field]
