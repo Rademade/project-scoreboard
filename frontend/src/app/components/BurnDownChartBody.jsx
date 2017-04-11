@@ -7,10 +7,18 @@ import ChartService from 'services/chart'
 
 const chart = new ChartService()
 const options = {
+  animation : false,
+  scaleShowLabels : false,
+  legend: {
+    display: false
+  },
+  tooltips: {
+    enabled: false
+  },
   scales: {
     yAxes: [{
       scaleLabel: {
-        display: true,
+        display: false,
         labelString: 'Story Points'
       },
       ticks: {

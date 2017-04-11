@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
-import * as _ from 'lodash'
 
 const styles = {
   wrapper: {
@@ -13,25 +12,24 @@ const styles = {
   }
 }
 
-const User = ({user, isLast}) => (
-  isLast ? (
-    <div key={user.full_name} style={{marginRight: 5}}>
-      <span>{user.role}: {user.full_name}</span>
-    </div>
-  ) : (
-    <div key={user.full_name} style={{marginRight: 5}}>
-      <span>{user.role}: {user.full_name}</span>,
-    </div>
-  )
-)
-
-const UserList = ({state}) => (
-  <div style={styles.wrapper}>
-    {state.users.map((user, index) =>
-      <User user={user} isLast={(index == state.users.length - 1)} key={user.full_name}/>
-    )}
-  </div>
-)
+const UserList = ({state}) => {
+  let userRoles = _.groupBy(state.users, 'role');
+  return (<div style={styles.wrapper}>
+    { _.map( userRoles, ((users) => {
+      let roleName = _.first(users).role;
+      let usersCount = users.length;
+      let i = 0;
+      return (<span key={roleName}>
+        <span style={{ marginRight: '5px'}}>{roleName}:</span>
+        { users.map( (user) => {
+          ++i;
+          let sign = usersCount == i ? '' : ',';
+          return (<span style={{marginRight: '5px'}}>{user.full_name}{sign}</span>)
+        }) }
+      </span>)
+    }) ) }
+  </div>)
+}
 
 const mapStateToProps = (state, ownProps) => ({
   state: ownProps
