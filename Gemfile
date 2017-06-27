@@ -1,14 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+gem 'rails', '~> 5.0.0'
+gem 'rademade_admin', github: 'Rademade/rademade_admin', branch: 'feature/rails-5'
 gem 'pg'
 gem 'acts_as_list'
-gem 'rademade_admin',
-  git: 'git@github.com:Rademade/rademade_admin',
-  branch: 'feature/rails-5',
-  ref: '980f205'
 
-gem 'puma', '~> 3.0'
+gem 'puma'
 gem 'jira-ruby', require: 'jira-ruby'
 gem 'parallel'
 
@@ -23,5 +20,3 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
-
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
