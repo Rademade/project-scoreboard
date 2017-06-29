@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react'
-import {GridList, GridTile, CircularProgress, Paper} from 'material-ui'
+import {CircularProgress} from 'material-ui'
 import {connect} from 'react-redux'
-import {Line, Chip} from 'react-chartjs-2'
+import {Line} from 'react-chartjs-2'
 import UserList from 'components/UserList'
 import ChartService from 'services/chart'
 
