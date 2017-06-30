@@ -11,11 +11,14 @@ module Services
 
         def current_sprint
           if active_sprint
+            start_date = Date.parse(sprint_info['startDate']) rescue sprint_info['startDate']
+            end_date = Date.parse(sprint_info['endDate']) rescue sprint_info['endDate']
+
             {
               name: active_sprint['name'],
               issues: serialized_issues,
-              started_at: Date.parse(sprint_info['startDate']) rescue sprint_info['startDate'],
-              ended_at: Date.parse(sprint_info['endDate']) rescue sprint_info['endDate'],
+              started_at: start_date,
+              ended_at: end_date,
               raw_issues: issues
             }
           end
