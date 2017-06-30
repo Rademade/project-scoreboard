@@ -31,7 +31,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const ScoreBoard = ({state, actions}) => (
   <div style={styles.root}>
-    <GridList cellHeight={'50%'} cols={3} padding={0} style={styles.gridList}>
+    <GridList cellHeight={'auto'} cols={3} padding={0} style={styles.gridList}>
       {state.projects.map(project =>
         (<GridTile style={styles.tile} key={project.id}>
           <Paper style={styles.paper}>
