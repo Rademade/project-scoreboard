@@ -53,10 +53,11 @@ export default class ChartService {
   }
 
   getWeekDates(sprint) {
-    let startOfSprintWeek = moment(sprint.started_at).startOf('week')
-    let endOfSprintWeek = moment(sprint.ended_at).endOf('week')
+    let startOfSprintWeek = moment(sprint.started_at).startOf('day')
+    let endOfSprintWeek = moment(sprint.ended_at).endOf('day').add(1, 'day')
     let duration = moment.duration(endOfSprintWeek.diff(startOfSprintWeek))
     let days = Math.round(duration.asDays())
+
     return _.map(_.range(days), day => moment(sprint.started_at).startOf('week').add(day, 'days').toDate())
   }
 
