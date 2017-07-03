@@ -9,8 +9,8 @@ const getProgress = (spring) => {
 
 const getSprintTimestamps = (sprint) => {
   return [
-    moment(sprint.started_at).startOf('week').format('DD/MM'),
-    moment(sprint.ended_at).endOf('week').format('DD/MM')
+    moment(sprint.started_at).format('DD/MM'),
+    moment(sprint.ended_at).format('DD/MM')
   ].join(' - ')
 }
 
