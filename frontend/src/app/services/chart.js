@@ -53,25 +53,25 @@ export default class ChartService {
   }
 
   getWeekDates(sprint) {
-    let startOfSprintWeek = moment(sprint.started_at).startOf('day')
-    let endOfSprintWeek = moment(sprint.ended_at).endOf('day').add(1, 'day')
+    let startOfSprintWeek = moment(sprint.started_at)
+    let endOfSprintWeek = moment(sprint.ended_at).add(1, 'days')
     let duration = moment.duration(endOfSprintWeek.diff(startOfSprintWeek))
     let days = Math.round(duration.asDays())
 
-    return _.map(_.range(days), day => moment(sprint.started_at).startOf('week').add(day, 'days').toDate())
+    return _.map(_.range(days), day => moment(sprint.started_at).add(day, 'days').toDate())
   }
 
   getSpendWeekDays(sprint) {
-    let startOfSprintWeek = moment(sprint.started_at).startOf('week')
+    let startOfSprintWeek = moment(sprint.started_at)
     let today = moment(new Date())
     let duration = moment.duration(today.diff(startOfSprintWeek))
     let days = Math.round(duration.asDays())
-    return _.map(_.range(days), day => moment(sprint.started_at).startOf('week').add(day, 'days').toDate())
+    return _.map(_.range(days), day => moment(sprint.started_at).add(day, 'days').toDate())
   }
 
   getRestWeekDays(sprint) {
     let today = moment(new Date())
-    let endOfSprintWeek = moment(sprint.ended_at).endOf('week')
+    let endOfSprintWeek = moment(sprint.ended_at)
     let duration = moment.duration(endOfSprintWeek.diff(today))
     let days = Math.round(duration.asDays())
     return _.map(_.range(days), day => moment(new Date()).add(day, 'days').toDate())
