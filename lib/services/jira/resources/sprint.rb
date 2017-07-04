@@ -30,6 +30,12 @@ module Services
           @issues ||= full_active_sprint['issues']
         end
 
+        def issues_sprint_info
+          issues.map do |issue|
+            Services::Jira::Parsers::Issue.new(issue).sprint_info
+          end
+        end
+
         def serialized_issues
           Services::Jira::Serializers::Issues.new(issues, project.jira_story_points_field).serialize
         end
