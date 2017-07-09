@@ -20,7 +20,7 @@ module Services
         def serialize_issue(issue)
           {
             id: to_id(issue.dig('votes', 'self')),
-            score: issue[story_points_field].to_f,
+            score: 1 + issue[story_points_field].to_f,
             created: to_date(issue['created']),
             updated: to_date(issue['updated']),
             resolved: to_date(issue['resolutiondate'])

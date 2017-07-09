@@ -26,28 +26,52 @@ const options = {
   }
 }
 
-const getDatasetsWrapper = (data1, data2) => {
-  return [{
-    type: 'line',
-    label: 'Planned',
-    borderColor: '#1c91c0',
-    pointBackgroundColor: '#1c91c0',
-    pointRadius: 0,
-    borderWidth: 1,
-    fill: false,
-    lineTension: 0,
-    data: data1
-  }, {
-    type: 'line',
-    label: 'Realized',
-    borderColor: '#e2431e',
-    pointBackgroundColor: '#e2431e',
-    pointRadius: 0,
-    borderWidth: 1,
-    fill: false,
-    lineTension: 0,
-    data: data2
-  }]
+const getDatasetsWrapper = (planned, realized, plannedBeforeOverestimation) => {
+  let datasets = [];
+
+  if (planned) {
+    datasets.push({
+      type: 'line',
+      label: 'Planned',
+      borderColor: '#1c91c0',
+      pointBackgroundColor: '#1c91c0',
+      pointRadius: 0,
+      borderWidth: 1,
+      fill: false,
+      lineTension: 0,
+      data: planned
+    })
+  }
+
+  if (realized) {
+    datasets.push({
+      type: 'line',
+      label: 'Realized',
+      borderColor: '#e2431e',
+      pointBackgroundColor: '#e2431e',
+      pointRadius: 0,
+      borderWidth: 1,
+      fill: false,
+      lineTension: 0,
+      data: realized
+    })
+  }
+
+  if (plannedBeforeOverestimation) {
+    datasets.push({
+      type: 'line',
+      label: 'Planned',
+      borderColor: '#ccc',
+      pointBackgroundColor: '#ccc',
+      pointRadius: 0,
+      borderWidth: 1,
+      fill: false,
+      lineTension: 0,
+      data: plannedBeforeOverestimation
+    })
+  }
+
+  return datasets;
 }
 
 const getWeekDates = (sprint) => {
@@ -60,17 +84,27 @@ const getWeekDates = (sprint) => {
 
 const getSpendWeekDays = (sprint) => {
   let startOfSprintWeek = moment(sprint.started_at);
-  let today = moment(new Date());
+  let today = moment(new Date()).add(1, 'day');
   let duration = moment.duration(today.diff(startOfSprintWeek));
   let days = Math.floor(duration.asDays());
   return _.range(days).map((day) => moment(sprint.started_at).add(day, 'days').toDate());
 }
 
+const getLinePlot = (dates, c) => {
+  let k = c / (dates.length - 1);
+  return _.range(dates.length).map((x) => c - k * x);
+}
+
 const getPlannedSprintData = (sprint) => {
   let dates = getWeekDates(sprint);
   let C = sprint.planned_velocity;
-  let k = C / (dates.length - 1);
-  return _.range(dates.length).map((x) => C - k * x);
+  return getLinePlot(dates, C);
+}
+
+const getPlannedSprintDataBeforeOverestimation = (sprint) => {
+  let dates = getWeekDates(sprint);
+  let C = sprint.planned_velocity - sprint.deviation_velocity;
+  return getLinePlot(dates, C);
 }
 
 const getRealizedSprintData = (sprint) => {
@@ -103,9 +137,16 @@ const getLabels = (sprint) => {
 const getDatasets = (sprint) => {
   let plannedSprintData = getPlannedSprintData(sprint);
   let realizedSprintData = getRealizedSprintData(sprint);
+  let plannedSprintDataBeforeOverestimation;
+
+  if (sprint.deviation_velocity > 0) {
+    plannedSprintDataBeforeOverestimation = getPlannedSprintDataBeforeOverestimation(sprint);
+  }
+
   let datasets = getDatasetsWrapper(
     plannedSprintData,
-    realizedSprintData
+    realizedSprintData,
+    plannedSprintDataBeforeOverestimation
   );
 
   let totalRealizedStoryPoints = _.last(realizedSprintData);

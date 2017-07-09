@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import initialState from 'store/config/initial-state';
 import {
   GET_PROJECTS_REQUEST_SUCCESS,
@@ -5,8 +6,6 @@ import {
   GET_PROJECT_REQUEST_SUCCESS,
   GET_PROJECT_REQUEST_FAILURE
 } from 'constants/dashboard';
-
-import * as _ from 'lodash';
 
 export default function appReducer(state = initialState.dashboard, action = {}) {
   let projects = []
@@ -21,18 +20,14 @@ export default function appReducer(state = initialState.dashboard, action = {}) 
         return project.id == action.payload.id
           ? Object.assign(project, action.payload, { error: null })
           : project;
-      })
-
-      projects = _.orderBy(projects, project => {
-        return project.sprint;
-      }, ['asc'])
+      });
 
       projects =  _.orderBy(projects, project => {
         return project.sprint ? project.sprint.progress : 0;
-      }, ['desc'])
+      }, ['desc']);
 
       projects = _.orderBy(projects, project => {
-        return project.sprint ? project.sprint.error : false;
+        return project.sprint ? project.sprint.error : true;
       }, ['desc']);
 
       return state.set('projects', projects).delete('error');

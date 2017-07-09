@@ -27,7 +27,7 @@ module Services
         end
 
         def update(sprint)
-          if Date.today < sprint.started_at
+          if Date.today < sprint.started_at || sprint.planned_velocity.zero?
             sprint.update(serialized_sprint.slice(:planned_velocity, :started_at, :ended_at))
           end
 

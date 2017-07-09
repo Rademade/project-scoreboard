@@ -38,11 +38,21 @@ function* _getProject(action) {
       payload: request.data
     });
   } catch (e) {
+    let message = e.message;
+
+    if (/401/.test(e.message)) {
+      message = 'Unauthorized. Check JIRA account :(';
+    }
+
+    if (/422/.test(e.message)) {
+      message = 'Something went wrong. Sorry :(';
+    }
+
     yield put({
       type: GET_PROJECT_REQUEST_FAILURE,
       payload: {
         id: action.payload,
-        error: e.message
+        error: message
       }
     });
   }
