@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     admin_resources :jira_accounts
     admin_resources :projects
     admin_resources :roles
+    admin_resources :sprints
     admin_resources :users
   end
 

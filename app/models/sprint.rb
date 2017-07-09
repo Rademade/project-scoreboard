@@ -2,6 +2,6 @@ class Sprint < Base
   belongs_to :project
 
   def to_s
-    name
+    [project.name, name].join(' --> ')
   end
 end
