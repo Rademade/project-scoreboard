@@ -20,11 +20,11 @@ export default function appReducer(state = initialState.dashboard, action = {}) 
       projects = state.toJS().projects.map((project) => {
         return project.id == action.payload.id
           ? Object.assign(project, action.payload, { error: null })
-          : project
+          : project;
       })
 
       projects = _.orderBy(projects, project => {
-        return project.sprint
+        return project.sprint;
       }, ['asc'])
 
       projects =  _.orderBy(projects, project => {
@@ -32,7 +32,7 @@ export default function appReducer(state = initialState.dashboard, action = {}) 
       }, ['desc'])
 
       projects = _.orderBy(projects, project => {
-        return project.error
+        return project.sprint ? project.sprint.error : false;
       }, ['desc']);
 
       return state.set('projects', projects).delete('error');
@@ -41,7 +41,7 @@ export default function appReducer(state = initialState.dashboard, action = {}) 
         return projects.map((project) => {
           return project.id == action.payload.id
             ? Object.assign(project, { error: action.payload.error })
-            : project
+            : project;
         });
       });
     default:
