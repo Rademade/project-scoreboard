@@ -1,11 +1,7 @@
-import React, {Component, PropTypes} from 'react'
-import LinearProgress from 'material-ui/LinearProgress'
-import {connect} from 'react-redux'
-import moment from 'moment'
-
-const getProgress = (spring) => {
-  return (spring.story_points.realized / spring.story_points.planned) * 100
-}
+import React from 'react';
+import LinearProgress from 'material-ui/LinearProgress';
+import { connect } from 'react-redux';
+import moment from 'moment';
 
 const getSprintTimestamps = (sprint) => {
   return [
@@ -16,7 +12,7 @@ const getSprintTimestamps = (sprint) => {
 
 const mapStateToProps = (state, ownProps) => ({
   state: ownProps
-})
+});
 
 const BurnDownChartHeader = ({state}) => {
   if (state.project.sprint) {
@@ -28,7 +24,7 @@ const BurnDownChartHeader = ({state}) => {
           <span style={{fontSize: '13px', color: '#9e9e9e', lineHeight: '38px'}}>{getSprintTimestamps(state.project.sprint)}</span>
         </div>
         <div style={{justifyContent: 'flex-end'}}>
-          <LinearProgress mode="determinate" value={getProgress(state.project.sprint)} color={'#2ec783'}/>
+          <LinearProgress mode="determinate" value={state.project.sprint.progress} color={'#2ec783'}/>
         </div>
       </div>
     )
@@ -43,10 +39,6 @@ const BurnDownChartHeader = ({state}) => {
   }
 }
 
-BurnDownChartHeader.propTypes = {
-  project: PropTypes.object.isRequired
-};
-
 export default connect(
   mapStateToProps
-)(BurnDownChartHeader)
+)(BurnDownChartHeader);

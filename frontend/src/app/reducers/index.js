@@ -1,8 +1,8 @@
-import {combineReducers} from 'redux'
-import {routerReducer} from 'react-router-redux'
-import projectApp from 'reducers/project'
+import { combineReducers } from 'redux-immutable';
+import dashboardReducer from './dashboard';
+import routingReducer from './routing';
 
 export default combineReducers({
-  routing: routerReducer,
-  projectApp: projectApp
-})
+  dashboard: dashboardReducer,
+  routing: routingReducer
+});

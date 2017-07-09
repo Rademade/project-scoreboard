@@ -9,8 +9,6 @@ Rails.application.routes.draw do
   end
 
   scope :api, module: :api, defaults: { format: :json } do
-    scope :v1, module: :v1 do
-      resources :projects, only: [:index, :show]
-    end
+    resources :projects, only: [:index, :show]
   end
 end

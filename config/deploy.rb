@@ -58,7 +58,7 @@ task :build_frontend do
   invoke :'npm:install_fixed'
   queue %{(
     cd frontend
-    #{echo_cmd %[npm run deploy]}
+    #{echo_cmd %[npm run build]}
   )}
 end
 

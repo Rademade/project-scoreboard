@@ -7,7 +7,6 @@ gem 'acts_as_list'
 
 gem 'puma'
 gem 'jira-ruby', require: 'jira-ruby'
-gem 'parallel'
 
 group :development, :test do
   gem 'rack-cors', require: 'rack/cors'
