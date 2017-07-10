@@ -7,7 +7,7 @@
   "scripts": {
     "start": "webpack-dev-server --config config/webpack.dev.js --progress --hot --profile --watch --content-base src/",
     "build": "npm run clean:dist && webpack --config config/webpack.prod.js --progress --profile",
-    "clean:dist": "rm -rf dist"
+    "clean:dist": "cd ../public && find . -name 'bundle.*' -delete && find . -name 'index.html' -delete"
   },
   "dependencies": {
     "axios": "^0.16.2",

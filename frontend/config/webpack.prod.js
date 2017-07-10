@@ -1,3 +1,4 @@
+const path = require('path');
 const webpackMerge = require('webpack-merge');
 const commonConfig = require('./webpack.common.js');
 const webpack = require('webpack');
@@ -15,7 +16,7 @@ module.exports = function (env) {
   }), {
     devtool: 'source-map',
     output: {
-      path: helpers.root('dist'),
+      path: path.resolve(__dirname, '../../public'),
       filename: 'bundle.[hash].js'
     },
     plugins: [
