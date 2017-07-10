@@ -11,31 +11,47 @@ module Services
 
         def current_sprint
           if active_sprint
-            start_date = Date.parse(sprint_info['startDate']) rescue sprint_info['startDate']
-            end_date = Date.parse(sprint_info['endDate']) rescue sprint_info['endDate']
-
             {
               name: active_sprint['name'],
-              issues: serialized_issues,
-              started_at: start_date,
-              ended_at: end_date,
-              raw_issues: issues
+              issues: issues,
+              planned_velocity: planned_velocity,
+              real_velocity: real_velocity,
+              progress: (real_velocity * 100 / planned_velocity).round(1),
+              started_at: to_date(sprint_info['startDate']),
+              ended_at: to_date(sprint_info['endDate'])
             }
           end
         end
 
-        private
+      private
 
         def issues
-          @issues ||= full_active_sprint['issues']
+          @issues ||= Services::Jira::Serializers::Issues.new(
+            full_active_sprint['issues'],
+            project.jira_story_points_field
+          ).serialize.select do |issue|
+            issue[:score] > 0
+          end
         end
 
-        def serialized_issues
-          Services::Jira::Serializers::Issues.new(issues, project.jira_story_points_field).serialize
+        def planned_velocity
+          @planned_velocity ||= issues.inject(0) do |sum, issue|
+            sum + issue[:score]
+          end || 1
+        end
+
+        def real_velocity
+          @real_velocity ||= issues.select do |issue|
+            issue[:resolved]
+          end.inject(0) do |sum, issue|
+            sum + issue[:score]
+          end
         end
 
         def sprint_info
-          @sprint_info ||= Services::Jira::Parsers::Issue.new(issues.first).sprint_info
+          @sprint_info ||= Services::Jira::Parsers::Issue.new(
+            full_active_sprint['issues'].first
+          ).sprint_info
         end
 
         def sprints
@@ -43,13 +59,17 @@ module Services
         end
 
         def active_sprint
-          @active_sprint ||= sprints.select do |sprint|
+          sprints.select do |sprint|
             sprint['state'] == 'ACTIVE'
           end.last
         end
 
         def full_active_sprint
           @full_active_sprint ||= client.Sprint.find(active_sprint['id'])
+        end
+
+        def to_date(date)
+          date ? Date.parse(date) : nil
         end
 
       end

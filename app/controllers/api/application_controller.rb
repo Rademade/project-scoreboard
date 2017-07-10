@@ -4,10 +4,12 @@ class Api::ApplicationController < ApplicationController
   around_action :wrap_in_try
 
   def wrap_in_try
-    begin
-      yield
-    rescue Exception => e
-      render json: { error: e.message }, status: :unprocessable_entity
-    end
+    yield
+  rescue ActiveRecord::RecordInvalid => validation_errors
+    render json: validation_errors.record.errors, status: :unprocessable_entity
+  rescue JIRA::HTTPError => error
+    render json: { message: error.message }, status: error.code
+  rescue Exception => error
+    render json: { message: error.message }, status: :unprocessable_entity
   end
 end

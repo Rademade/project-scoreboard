@@ -10,20 +10,29 @@ module Services
         end
 
         def serialize
-          Parallel.map(issues, in_threads: 2) do |issue|
+          issues.map do |issue|
             serialize_issue(issue['fields'])
           end.compact
         end
 
-        private
+      private
 
         def serialize_issue(issue)
           {
-            resolution_date: issue['resolutiondate'] ? Date.parse(issue['resolutiondate']) : nil,
-            status: issue.dig('resolution', 'name'),
-            summary: issue['summary'],
-            story_points: issue[story_points_field]
+            id: to_id(issue.dig('votes', 'self')),
+            score: issue[story_points_field].to_f,
+            created: to_date(issue['created']),
+            updated: to_date(issue['updated']),
+            resolved: to_date(issue['resolutiondate'])
           }
+        end
+
+        def to_date(date)
+          date ? Date.parse(date) : nil
+        end
+
+        def to_id(link)
+          link ? link[/issue\/(.*?)\/votes/m, 1] : nil
         end
 
       end

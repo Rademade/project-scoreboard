@@ -1,10 +1,8 @@
-import ScoreBoard from 'containers/ScoreBoard'
+import DashBoard from 'modules/DashBoard';
 
-const routes = {
-  childRoutes: [{
-    path: '/',
-    component: ScoreBoard
-  }]
-};
+const routes = [{
+  path: '/',
+  component: DashBoard
+}];
 
 export default routes;

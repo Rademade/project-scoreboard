@@ -1,6 +1,6 @@
-import React, {Component, PropTypes} from 'react'
-import {connect} from 'react-redux'
-import * as _ from 'lodash'
+import React from 'react';
+import { connect } from 'react-redux';
+import * as _ from 'lodash';
 
 const styles = {
   wrapper: {
@@ -11,7 +11,11 @@ const styles = {
     color: '#4d4d4d',
     fontSize: '13px'
   }
-}
+};
+
+const mapStateToProps = (state, ownProps) => ({
+  state: ownProps
+});
 
 const UserList = ({state}) => {
   let groups = _.groupBy(state.users, 'role');
@@ -36,14 +40,6 @@ const UserList = ({state}) => {
   </div>)
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  state: ownProps
-})
-
-UserList.propTypes = {
-  users: PropTypes.array.isRequired
-}
-
 export default connect(
   mapStateToProps
-)(UserList)
+)(UserList);
