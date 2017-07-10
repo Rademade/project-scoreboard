@@ -1,9 +1,8 @@
-import './app.css'
-import React from 'react'
-import ReactDOM from 'react-dom'
-import Layout from './app/layout'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Index from './app/index';
 
 ReactDOM.render(
-  <Layout/>,
+  <Index/>,
   document.body.appendChild(document.createElement('div'))
 );

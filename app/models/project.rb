@@ -1,5 +1,6 @@
 class Project < Base
   has_and_belongs_to_many :users
+  has_many :sprints
   belongs_to :jira_account
 
   scope :with_tuned_jira, -> {
